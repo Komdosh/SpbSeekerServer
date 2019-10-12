@@ -14,7 +14,7 @@ import javax.persistence.Id
 @Entity
 data class Travel(
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
-        @ApiModelProperty(notes = "Travel id name", required = true)
+        @ApiModelProperty(notes = "Travel id", required = true)
         private val id: Long?,
         @ApiModelProperty(notes = "Provided travel name", required = true)
         private var name: String,
