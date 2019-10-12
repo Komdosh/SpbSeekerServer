@@ -1,12 +1,10 @@
 package com.bst.spbseekerserver.model.dto
 
-import com.bst.spbseekerserver.model.entity.Category
-import com.bst.spbseekerserver.model.entity.Travel
 import io.swagger.annotations.ApiModelProperty
 import org.springframework.data.annotation.CreatedBy
 import java.util.*
 
-data class TravelDto(
+data class TravelWithPointsDto(
         @ApiModelProperty(notes = "Travel id", required = true)
         val id: Long?,
         @ApiModelProperty(notes = "Provided travel name", required = true)
@@ -22,14 +20,11 @@ data class TravelDto(
         @ApiModelProperty(notes = "Date when administrator created this travel")
         val createdDate: Date?,
         @ApiModelProperty(notes = "Date when administrator updated this travel")
-        val updatedDate: Date?
+        val updatedDate: Date?,
+        @ApiModelProperty(notes = "List of points", dataType = "List")
+        val points: List<PointDto>
 ) {
-    fun toEntity(category: Category): Travel = Travel(
-            id,
-            name,
-            adminId,
-            imgUrl,
-            description,
-            category
-    )
+    constructor(travel: TravelDto, points: List<PointDto>) :
+            this(travel.id, travel.name, travel.adminId, travel.imgUrl, travel.description,
+                    travel.categoryId, travel.createdDate, travel.updatedDate, points)
 }

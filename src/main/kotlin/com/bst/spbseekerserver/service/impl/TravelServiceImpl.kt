@@ -2,14 +2,27 @@ package com.bst.spbseekerserver.service.impl
 
 import com.bst.spbseekerserver.logger
 import com.bst.spbseekerserver.model.dto.TravelDto
+import com.bst.spbseekerserver.model.entity.Travel
 import com.bst.spbseekerserver.repository.TravelRepository
+import com.bst.spbseekerserver.service.api.CategoryService
 import com.bst.spbseekerserver.service.api.TravelService
 import javassist.NotFoundException
 import org.springframework.stereotype.Service
 
 
 @Service
-class TravelServiceImpl(val travelRepository: TravelRepository) : TravelService {
+class TravelServiceImpl(val travelRepository: TravelRepository, val categoryService: CategoryService) : TravelService {
+
+    override fun getTravelEntity(id: Long): Travel {
+        logger.debug { "Attempting to fetch travel with id $id" }
+        val travel = travelRepository.findById(id).orElseThrow {
+            logger.error { "Travel with provided id: $id, doesn't exists" }
+            throw NotFoundException("Travel with provided id doesn't exists")
+        }
+        logger.debug { "Fetched travel: $travel" }
+        return travel
+    }
+
     override fun getAllTravels(): List<TravelDto> {
         logger.debug { "Attempting to fetch all travels" }
         val travels = travelRepository.findAll().map { it.toDto() }
@@ -29,19 +42,23 @@ class TravelServiceImpl(val travelRepository: TravelRepository) : TravelService 
 
     override fun saveTravel(travel: TravelDto): TravelDto {
         logger.debug { "Attempting to save travel $travel" }
-        val saveTravel = travelRepository.save(travel.toEntity()).toDto()
+        val category = categoryService.getCategoryEntity(travel.categoryId)
+
+
+        var travelEntity = travel.toEntity(category)
+        travel.id?.let {
+            travelEntity = getTravelEntity(it)
+            travelEntity.update(travel)
+        }
+
+
+        val saveTravel = travelRepository.save(travelEntity).toDto()
         logger.debug { "Travel $saveTravel saved successfully" }
         return saveTravel
     }
 
     override fun getTravel(id: Long): TravelDto {
-        logger.debug { "Attempting to fetch travel with id $id" }
-        val travel = travelRepository.findById(id).orElseThrow {
-            logger.error { "Travel with provided id: $id, doesn't exists" }
-            throw NotFoundException("Travel with provided id doesn't exists")
-        }
-        logger.debug { "Fetched travel: $travel" }
-        return travel.toDto()
+        return getTravelEntity(id).toDto()
     }
 
 }

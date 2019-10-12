@@ -1,8 +1,9 @@
 package com.bst.spbseekerserver.controller.api
 
 import com.bst.spbseekerserver.model.dto.TravelDto
-import com.bst.spbseekerserver.model.entity.Travel
+import com.bst.spbseekerserver.model.dto.TravelWithPointsDto
 import com.bst.spbseekerserver.service.api.TravelService
+import com.bst.spbseekerserver.service.api.TravelWithPointsService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
@@ -13,13 +14,20 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @Api(value = "travel", description = "Rest API for travel operations", tags = ["Travel API"])
 @RequestMapping(value = ["/api/v1/travel"], produces = [MediaType.APPLICATION_JSON_VALUE])
-class TravelController(val travelService: TravelService) {
-    @ApiOperation(value = "Fetching one travel by id", response = Travel::class)
+class TravelController(val travelService: TravelService, val travelWithPointsService: TravelWithPointsService) {
+    @ApiOperation(value = "Fetching one travel by id", response = TravelDto::class)
     @ApiResponses(
             value = [ApiResponse(code = 200, message = "OK"), ApiResponse(code = 404, message = "The resource not found")]
     )
     @GetMapping("/{id}")
     fun get(@PathVariable("id") travelId: Long): TravelDto = travelService.getTravel(travelId)
+
+    @ApiOperation(value = "Fetching one travel by id", response = TravelWithPointsDto::class)
+    @ApiResponses(
+            value = [ApiResponse(code = 200, message = "OK"), ApiResponse(code = 404, message = "The resource not found")]
+    )
+    @GetMapping("/with-points/{id}")
+    fun getWithPoints(@PathVariable("id") travelId: Long): TravelWithPointsDto = travelWithPointsService.getTravelWithPoints(travelId)
 
     @ApiOperation(value = "Fetching all travels", responseContainer = "List", response = TravelDto::class)
     @ApiResponses(
