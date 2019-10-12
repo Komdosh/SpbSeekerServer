@@ -4,8 +4,6 @@ import com.bst.spbseekerserver.model.dto.PointDto
 import com.bst.spbseekerserver.service.api.PointService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
-import io.swagger.annotations.ApiResponse
-import io.swagger.annotations.ApiResponses
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
@@ -14,30 +12,18 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping(value = ["/api/v1/point"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class PointController(val pointService: PointService) {
     @ApiOperation(value = "Fetching one point by id", response = PointDto::class)
-    @ApiResponses(
-            value = [ApiResponse(code = 200, message = "OK"), ApiResponse(code = 404, message = "The resource not found")]
-    )
     @GetMapping("/{id}")
-    fun get(@PathVariable("id") travelId: Long): PointDto = pointService.getPoint(travelId)
+    fun get(@PathVariable("id") pointId: Long): PointDto = pointService.getPoint(pointId)
 
     @ApiOperation(value = "Fetching all travels", responseContainer = "List", response = PointDto::class)
-    @ApiResponses(
-            value = [ApiResponse(code = 200, message = "OK"), ApiResponse(code = 404, message = "The resource not found")]
-    )
     @GetMapping
     fun getAll(): List<PointDto> = pointService.getAllPoints()
 
     @ApiOperation(value = "Save travel", response = PointDto::class)
-    @ApiResponses(
-            value = [ApiResponse(code = 200, message = "OK"), ApiResponse(code = 404, message = "The resource not found")]
-    )
     @PostMapping
-    fun save(@RequestBody travel: PointDto): PointDto = pointService.savePoint(travel)
+    fun save(@RequestBody point: PointDto): PointDto = pointService.savePoint(point)
 
     @ApiOperation(value = "Delete one travel by id", response = Long::class)
-    @ApiResponses(
-            value = [ApiResponse(code = 200, message = "OK"), ApiResponse(code = 404, message = "The resource not found")]
-    )
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable("id") travelId: Long): Long = pointService.deletePoint(travelId)
+    fun delete(@PathVariable("id") pointId: Long): Long = pointService.deletePoint(pointId)
 }

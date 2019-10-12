@@ -52,9 +52,9 @@ class TravelServiceImpl(val travelRepository: TravelRepository, val categoryServ
         }
 
 
-        val saveTravel = travelRepository.save(travelEntity).toDto()
-        logger.debug { "Travel $saveTravel saved successfully" }
-        return saveTravel
+        val savedTravel = travelRepository.save(travelEntity).toDto()
+        logger.debug { "Travel $savedTravel saved successfully" }
+        return savedTravel
     }
 
     override fun getTravel(id: Long): TravelDto {
