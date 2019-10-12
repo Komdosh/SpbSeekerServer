@@ -7,7 +7,7 @@ import org.springframework.data.annotation.CreatedBy
 import java.util.*
 
 data class TravelDto(
-        @ApiModelProperty(notes = "Travel id", required = true)
+        @ApiModelProperty(notes = "Travel id")
         val id: Long?,
         @ApiModelProperty(notes = "Provided travel name", required = true)
         var name: String,

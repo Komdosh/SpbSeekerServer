@@ -10,7 +10,7 @@ import org.springframework.lang.Nullable
 import java.util.*
 
 data class PointDto(
-        @ApiModelProperty(notes = "Point id", required = true)
+        @ApiModelProperty(notes = "Point id")
         val id: Long?,
         @ApiModelProperty(notes = "Name of point", required = true)
         var name: String,

@@ -5,7 +5,7 @@ import com.bst.spbseekerserver.model.enum.HintAction
 import io.swagger.annotations.ApiModelProperty
 
 data class HintDto(
-        @ApiModelProperty(notes = "Point id", required = true)
+        @ApiModelProperty(notes = "Hint id")
         val id: Long?,
         @ApiModelProperty(notes = "Name of point", required = true)
         var name: String,

@@ -13,7 +13,7 @@ import javax.persistence.Id
 
 data class CategoryDto(
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
-        @ApiModelProperty(notes = "Category id", required = true)
+        @ApiModelProperty(notes = "Category id")
         val id: Long?,
         @ApiModelProperty(notes = "Provided category name", required = true)
         var name: String,

@@ -26,6 +26,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven(url = "https://dl.bintray.com/pelenthium/maven")
 }
 
 dependencies {
@@ -38,6 +39,7 @@ dependencies {
 	implementation("io.github.microutils:kotlin-logging:1.7.6")
 	implementation("io.springfox:springfox-swagger-ui:2.9.2")
 	implementation("io.springfox:springfox-swagger2:2.9.2")
+	implementation("com.github.pelenthium:selectel-storage-client:0.2.0")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.postgresql:postgresql")
