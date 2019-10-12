@@ -21,11 +21,11 @@ data class Point(
         var longitude: Double,
         @CreationTimestamp val createdDate: Date?,
         @UpdateTimestamp val updatedDate: Date?,
-        @ManyToOne val travel: Travel
+        @ManyToOne val travel: Travel?
 ) {
 
     constructor(id: Long?, name: String, adminId: Long, imgUrlList: List<String>, description: String,
-                shortDescription: String, orderNum: Long, latitude: Double, longitude: Double, travel: Travel)
+                shortDescription: String, orderNum: Long, latitude: Double, longitude: Double, travel: Travel?)
             : this(id, name, adminId, imgUrlList, description, shortDescription, orderNum, latitude,
             longitude, createdDate = null, updatedDate = null, travel = travel)
 
@@ -41,7 +41,7 @@ data class Point(
             longitude,
             createdDate!!,
             updatedDate!!,
-            travel.id!!
+            travel?.id!!
     )
 
     fun update(pointDto: PointDto) {

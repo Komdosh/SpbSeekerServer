@@ -33,9 +33,9 @@ data class PointDto(
         @ApiModelProperty(notes = "Date when administrator updated this point")
         @Nullable @UpdateTimestamp val updatedDate: Date?,
         @ApiModelProperty(notes = "Travel id that control this point")
-        val travelId: Long
+        val travelId: Long?
 ) {
-    fun toEntity(travel: Travel): Point = Point(
+    fun toEntity(travel: Travel?): Point = Point(
             id,
             name,
             adminId,

@@ -46,7 +46,9 @@ class PointServiceImpl(val pointRepository: PointRepository, val travelService: 
     override fun savePoint(point: PointDto): PointDto {
         logger.debug { "Attempting to save point $point" }
 
-        val travel = travelService.getTravelEntity(point.travelId)
+        val travel = point.travelId?.let {
+            travelService.getTravelEntity(it)
+        }
 
         var pointEntity = point.toEntity(travel)
         point.id?.let {

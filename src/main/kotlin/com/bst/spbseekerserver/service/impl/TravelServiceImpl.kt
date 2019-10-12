@@ -51,7 +51,6 @@ class TravelServiceImpl(val travelRepository: TravelRepository, val categoryServ
             travelEntity.update(travel)
         }
 
-
         val savedTravel = travelRepository.save(travelEntity).toDto()
         logger.debug { "Travel $savedTravel saved successfully" }
         return savedTravel
