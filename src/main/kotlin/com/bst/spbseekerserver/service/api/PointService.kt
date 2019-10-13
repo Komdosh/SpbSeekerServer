@@ -10,4 +10,5 @@ interface PointService {
     fun getAllPointsByTravelId(travelId: Long): List<PointDto>
     fun deletePoint(id: Long): Long
     fun savePoint(point: PointDto): PointDto
+    fun getNearestPoint(latitude: Double, longitude: Double): PointDto
 }

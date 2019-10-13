@@ -26,4 +26,8 @@ class PointController(val pointService: PointService) {
     @ApiOperation(value = "Delete one travel by id", response = Long::class)
     @DeleteMapping("/{id}")
     fun delete(@PathVariable("id") pointId: Long): Long = pointService.deletePoint(pointId)
+
+    @ApiOperation(value = "Fetch nearest point by coordinates", response = PointDto::class)
+    @GetMapping("/nearest")
+    fun getNearestPoint(@RequestParam("latitude") latitude: Double, @RequestParam("longitude") longitude: Double): PointDto = pointService.getNearestPoint(latitude, longitude)
 }

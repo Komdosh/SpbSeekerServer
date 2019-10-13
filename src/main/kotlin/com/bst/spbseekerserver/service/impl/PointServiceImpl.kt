@@ -3,6 +3,7 @@ package com.bst.spbseekerserver.service.impl
 import com.bst.spbseekerserver.logger
 import com.bst.spbseekerserver.model.dto.PointDto
 import com.bst.spbseekerserver.model.entity.Point
+import com.bst.spbseekerserver.model.location.Location
 import com.bst.spbseekerserver.repository.PointRepository
 import com.bst.spbseekerserver.service.api.PointService
 import com.bst.spbseekerserver.service.api.TravelService
@@ -69,5 +70,13 @@ class PointServiceImpl(val pointRepository: PointRepository, val travelService: 
         }.map { it.toDto() }
         logger.debug { "Fetched points: $points" }
         return points
+    }
+
+    override fun getNearestPoint(latitude: Double, longitude: Double): PointDto {
+        val points = pointRepository.findAll()
+        val source = Location(latitude, longitude)
+        logger.debug { "Attempting to fetch nearest point for location: $source" }
+        return points.minBy { Location(it.latitude, it.longitude).distanceTo(source) }?.toDto()
+                ?: throw NoSuchElementException("There is no nearest point for source $source")
     }
 }
