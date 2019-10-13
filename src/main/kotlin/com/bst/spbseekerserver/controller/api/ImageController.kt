@@ -19,7 +19,6 @@ class ImageController(val imageService: ImageService) {
     @PostMapping
     fun upload(
             @ApiParam(required = true, value = "Image ByteStream")
-            @RequestParam("image") multipartFile: MultipartFile,
-            @ApiParam(required = true, value = "File Extension")
-            @RequestParam("fileExt") fileExt: String): String = imageService.upload(multipartFile.inputStream, fileExt)
+            @RequestParam("image") multipartFile: MultipartFile): String = imageService.upload(multipartFile.inputStream, multipartFile.originalFilename?.split(".")?.last()
+            ?: throw IllegalArgumentException("There is no file extension"))
 }
