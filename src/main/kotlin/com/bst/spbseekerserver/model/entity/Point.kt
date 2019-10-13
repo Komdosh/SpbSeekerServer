@@ -41,7 +41,7 @@ data class Point(
             longitude,
             createdDate!!,
             updatedDate!!,
-            travel?.id!!
+            travel?.id
     )
 
     fun update(pointDto: PointDto) {
