@@ -20,3 +20,7 @@ spring:
   jmx:
     default-domain: spbseeker
 debug: true
+
+jwt:
+  secret: SomeTextInRandom
+  expirationInMs: 5000

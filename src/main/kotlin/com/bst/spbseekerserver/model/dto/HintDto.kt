@@ -1,7 +1,7 @@
 package com.bst.spbseekerserver.model.dto
 
 import com.bst.spbseekerserver.model.entity.Hint
-import com.bst.spbseekerserver.model.enum.HintAction
+import com.bst.spbseekerserver.model.enums.HintAction
 import io.swagger.annotations.ApiModelProperty
 
 data class HintDto(

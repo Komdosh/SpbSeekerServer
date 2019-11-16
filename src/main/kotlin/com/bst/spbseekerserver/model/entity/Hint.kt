@@ -1,7 +1,7 @@
 package com.bst.spbseekerserver.model.entity
 
 import com.bst.spbseekerserver.model.dto.HintDto
-import com.bst.spbseekerserver.model.enum.HintAction
+import com.bst.spbseekerserver.model.enums.HintAction
 import javax.persistence.*
 
 @Entity
