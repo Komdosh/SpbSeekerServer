@@ -140,10 +140,10 @@ CREATE TABLE public.point_img_url_list (
 ALTER TABLE public.point_img_url_list OWNER TO postgres;
 
 --
--- Name: travel; Type: TABLE; Schema: public; Owner: postgres
+-- Name: route; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.travel (
+CREATE TABLE public.route (
     id bigint NOT NULL,
     admin_id bigint NOT NULL,
     category_name character varying(255),
@@ -157,7 +157,7 @@ CREATE TABLE public.travel (
 );
 
 
-ALTER TABLE public.travel OWNER TO postgres;
+ALTER TABLE public.route OWNER TO postgres;
 
 --
 -- Data for Name: category; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -449,11 +449,11 @@ INSERT INTO public.point_img_url_list VALUES (511, 'https://api.selcdn.ru/v1/SEL
 
 
 --
--- Data for Name: travel; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: route; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.travel VALUES (3, 0, NULL, NULL, 'https://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/1507053534/00-lead-plane-flying-clouds-LASTMINUTEHACKS1017.jpg?itok=YHo_gGPL', 'plane', '2019-10-12 19:05:36.003', '2019-10-12 19:05:36.003', 2, 'description');
-INSERT INTO public.travel VALUES (512, 0, NULL, NULL, 'https://api.selcdn.ru/v1/SEL_99509/SpbSeeker/img_1570971454467.jpg', 'Travel 1', '2019-10-13 12:57:34.557', '2019-10-13 12:57:34.557', 2, 'Some description');
+INSERT INTO public.route VALUES (3, 0, NULL, NULL, 'https://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/1507053534/00-lead-plane-flying-clouds-LASTMINUTEHACKS1017.jpg?itok=YHo_gGPL', 'plane', '2019-10-12 19:05:36.003', '2019-10-12 19:05:36.003', 2, 'description');
+INSERT INTO public.route VALUES (512, 0, NULL, NULL, 'https://api.selcdn.ru/v1/SEL_99509/SpbSeeker/img_1570971454467.jpg', 'Travel 1', '2019-10-13 12:57:34.557', '2019-10-13 12:57:34.557', 2, 'Some description');
 
 
 --
@@ -488,10 +488,10 @@ ALTER TABLE ONLY public.point
 
 
 --
--- Name: travel travel_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: route travel_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.travel
+ALTER TABLE ONLY public.route
     ADD CONSTRAINT travel_pkey PRIMARY KEY (id);
 
 
@@ -500,7 +500,7 @@ ALTER TABLE ONLY public.travel
 --
 
 ALTER TABLE ONLY public.point
-    ADD CONSTRAINT fk6c33y4gg3ln78whv5ycd3q3yy FOREIGN KEY (travel_id) REFERENCES public.travel(id);
+    ADD CONSTRAINT fk6c33y4gg3ln78whv5ycd3q3yy FOREIGN KEY (travel_id) REFERENCES public.route(id);
 
 
 --
@@ -512,10 +512,10 @@ ALTER TABLE ONLY public.point_img_url_list
 
 
 --
--- Name: travel fkqn1x6802pqjmnu02dotacxlb5; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: route fkqn1x6802pqjmnu02dotacxlb5; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.travel
+ALTER TABLE ONLY public.route
     ADD CONSTRAINT fkqn1x6802pqjmnu02dotacxlb5 FOREIGN KEY (category_id) REFERENCES public.category(id);
 
 

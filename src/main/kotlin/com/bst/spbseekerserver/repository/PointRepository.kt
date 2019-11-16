@@ -7,5 +7,5 @@ import java.util.*
 
 @Repository
 interface PointRepository : CrudRepository<Point, Long> {
-    fun findAllByTravelId(travelId: Long): Optional<List<Point>>
+    fun findAllByRouteId(routeId: Long): Optional<List<Point>>
 }

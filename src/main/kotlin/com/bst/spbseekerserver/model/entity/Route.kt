@@ -1,6 +1,6 @@
 package com.bst.spbseekerserver.model.entity
 
-import com.bst.spbseekerserver.model.dto.TravelDto
+import com.bst.spbseekerserver.model.dto.RouteDto
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import org.springframework.data.annotation.CreatedBy
@@ -8,7 +8,7 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-data class Travel(
+data class Route(
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
         val id: Long?,
         var name: String,
@@ -22,7 +22,7 @@ data class Travel(
     constructor(id: Long?, name: String, adminId: Long, imgUrl: String, description: String, category: Category)
             : this(id, name, adminId, imgUrl, description, category, createdDate = null, updatedDate = null)
 
-    fun toDto(): TravelDto = TravelDto(
+    fun toDto(): RouteDto = RouteDto(
             id,
             name,
             adminId,
@@ -33,9 +33,9 @@ data class Travel(
             updatedDate!!
     )
 
-    fun update(travelDto: TravelDto) {
-        name = travelDto.name
-        imgUrl = travelDto.imgUrl
-        description = travelDto.description
+    fun update(routeDto: RouteDto) {
+        name = routeDto.name
+        imgUrl = routeDto.imgUrl
+        description = routeDto.description
     }
 }

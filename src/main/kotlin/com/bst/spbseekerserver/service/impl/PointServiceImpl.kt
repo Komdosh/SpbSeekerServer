@@ -6,13 +6,13 @@ import com.bst.spbseekerserver.model.entity.Point
 import com.bst.spbseekerserver.model.location.Location
 import com.bst.spbseekerserver.repository.PointRepository
 import com.bst.spbseekerserver.service.api.PointService
-import com.bst.spbseekerserver.service.api.TravelService
+import com.bst.spbseekerserver.service.api.RouteService
 import javassist.NotFoundException
 import org.springframework.stereotype.Service
 
 
 @Service
-class PointServiceImpl(val pointRepository: PointRepository, val travelService: TravelService) : PointService {
+class PointServiceImpl(val pointRepository: PointRepository, val routeService: RouteService) : PointService {
     override fun getPoint(id: Long): PointDto {
         return getPointEntity(id).toDto()
     }
@@ -47,26 +47,26 @@ class PointServiceImpl(val pointRepository: PointRepository, val travelService: 
     override fun savePoint(point: PointDto): PointDto {
         logger.debug { "Attempting to save point $point" }
 
-        val travel = point.travelId?.let {
-            travelService.getTravelEntity(it)
+        val route = point.routeId?.let {
+            routeService.getRouteEntity(it)
         }
 
-        var pointEntity = point.toEntity(travel)
+        var pointEntity = point.toEntity(route)
         point.id?.let {
             pointEntity = getPointEntity(it)
             pointEntity.update(point)
         }
 
         val savedPoint = pointRepository.save(pointEntity).toDto()
-        logger.debug { "Travel $savedPoint saved successfully" }
+        logger.debug { "Route $savedPoint saved successfully" }
         return savedPoint
     }
 
-    override fun getAllPointsByTravelId(travelId: Long): List<PointDto> {
-        logger.debug { "Attempting to fetch points by travelId: $travelId" }
-        val points = pointRepository.findAllByTravelId(travelId).orElseThrow {
-            logger.error { "Points with provided travelId: $travelId, doesn't exists" }
-            throw NotFoundException("Points with provided travelId: $travelId, doesn't exists")
+    override fun getAllPointsByRouteId(routeId: Long): List<PointDto> {
+        logger.debug { "Attempting to fetch points by routeId: $routeId" }
+        val points = pointRepository.findAllByRouteId(routeId).orElseThrow {
+            logger.error { "Points with provided routeId: $routeId, doesn't exists" }
+            throw NotFoundException("Points with provided routeId: $routeId, doesn't exists")
         }.map { it.toDto() }
         logger.debug { "Fetched points: $points" }
         return points

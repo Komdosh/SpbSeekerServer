@@ -1,7 +1,7 @@
 package com.bst.spbseekerserver.model.dto
 
 import com.bst.spbseekerserver.model.entity.Point
-import com.bst.spbseekerserver.model.entity.Travel
+import com.bst.spbseekerserver.model.entity.Route
 import io.swagger.annotations.ApiModelProperty
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
@@ -22,7 +22,7 @@ data class PointDto(
         var description: String,
         @ApiModelProperty(notes = "Short Description of this point", required = true)
         var shortDescription: String,
-        @ApiModelProperty(notes = "Order of this point in travel, should be unique", required = true)
+        @ApiModelProperty(notes = "Order of this point in route, should be unique", required = true)
         var orderNum: Long,
         @ApiModelProperty(notes = "Longitude of point", required = true)
         var latitude: Double,
@@ -32,10 +32,10 @@ data class PointDto(
         @Nullable @CreationTimestamp val createdDate: Date?,
         @ApiModelProperty(notes = "Date when administrator updated this point")
         @Nullable @UpdateTimestamp val updatedDate: Date?,
-        @ApiModelProperty(notes = "Travel id that control this point")
-        val travelId: Long?
+        @ApiModelProperty(notes = "Route id that managed this point")
+        val routeId: Long?
 ) {
-    fun toEntity(travel: Travel?): Point = Point(
+    fun toEntity(route: Route?): Point = Point(
             id,
             name,
             adminId,
@@ -45,6 +45,6 @@ data class PointDto(
             orderNum,
             latitude,
             longitude,
-            travel
+            route
     )
 }

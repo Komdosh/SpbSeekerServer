@@ -1,7 +1,7 @@
 package com.bst.spbseekerserver.controller.api
 
 import com.bst.spbseekerserver.model.dto.PointDto
-import com.bst.spbseekerserver.model.dto.TravelDto
+import com.bst.spbseekerserver.model.dto.RouteDto
 import com.bst.spbseekerserver.service.api.AutoRoutingService
 import com.bst.spbseekerserver.service.api.PointService
 import io.swagger.annotations.Api
@@ -17,15 +17,15 @@ class PointController(val pointService: PointService, val autoRoutingService: Au
     @GetMapping("/{id}")
     fun get(@PathVariable("id") pointId: Long): PointDto = pointService.getPoint(pointId)
 
-    @ApiOperation(value = "Fetching all travels", responseContainer = "List", response = PointDto::class)
+    @ApiOperation(value = "Fetching all points", responseContainer = "List", response = PointDto::class)
     @GetMapping
     fun getAll(): List<PointDto> = pointService.getAllPoints()
 
-    @ApiOperation(value = "Save travel", response = PointDto::class)
+    @ApiOperation(value = "Save point", response = PointDto::class)
     @PostMapping
     fun save(@RequestBody point: PointDto): PointDto = pointService.savePoint(point)
 
-    @ApiOperation(value = "Delete one travel by id", response = Long::class)
+    @ApiOperation(value = "Delete one point by id", response = Long::class)
     @DeleteMapping("/{id}")
     fun delete(@PathVariable("id") pointId: Long): Long = pointService.deletePoint(pointId)
 
@@ -34,6 +34,6 @@ class PointController(val pointService: PointService, val autoRoutingService: Au
     fun getNearestPoint(@RequestParam("latitude") latitude: Double, @RequestParam("longitude") longitude: Double): PointDto = pointService.getNearestPoint(latitude, longitude)
 
     @GetMapping("/auto")
-    fun getAuto(@RequestParam("latitude") latitude: Double, @RequestParam("longitude") longitude: Double): TravelDto = autoRoutingService.generateTravel(latitude, longitude)
+    fun getAuto(@RequestParam("latitude") latitude: Double, @RequestParam("longitude") longitude: Double): RouteDto = autoRoutingService.generateRoute(latitude, longitude)
 
 }

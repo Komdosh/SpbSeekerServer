@@ -17,7 +17,7 @@ data class CategoryDto(
         val id: Long?,
         @ApiModelProperty(notes = "Provided category name", required = true)
         var name: String,
-        @ApiModelProperty(notes = "Id of user that can managing this travel", required = true)
+        @ApiModelProperty(notes = "Id of user that can managing this route", required = true)
         @CreatedBy var adminId: Long,
         @ApiModelProperty(notes = "Image url of category")
         var imgUrl: String = "",
