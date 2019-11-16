@@ -1,4 +1,4 @@
-package com.bst.spbseekerserver.model.dto
+package com.bst.spbseekerserver.model.dto.hint
 
 import com.bst.spbseekerserver.model.entity.Hint
 import com.bst.spbseekerserver.model.enums.HintAction

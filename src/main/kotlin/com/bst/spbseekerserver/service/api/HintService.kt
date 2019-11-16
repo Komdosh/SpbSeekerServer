@@ -1,6 +1,6 @@
 package com.bst.spbseekerserver.service.api
 
-import com.bst.spbseekerserver.model.dto.HintDto
+import com.bst.spbseekerserver.model.dto.hint.HintDto
 import com.bst.spbseekerserver.model.entity.Hint
 
 interface HintService {

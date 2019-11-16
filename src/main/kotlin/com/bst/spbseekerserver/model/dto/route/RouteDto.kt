@@ -1,4 +1,4 @@
-package com.bst.spbseekerserver.model.dto
+package com.bst.spbseekerserver.model.dto.route
 
 import com.bst.spbseekerserver.model.entity.Category
 import com.bst.spbseekerserver.model.entity.Route

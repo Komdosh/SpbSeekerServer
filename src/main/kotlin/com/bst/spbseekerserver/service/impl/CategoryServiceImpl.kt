@@ -1,7 +1,7 @@
 package com.bst.spbseekerserver.service.impl
 
 import com.bst.spbseekerserver.logger
-import com.bst.spbseekerserver.model.dto.CategoryDto
+import com.bst.spbseekerserver.model.dto.category.CategoryDto
 import com.bst.spbseekerserver.model.entity.Category
 import com.bst.spbseekerserver.repository.CategoryRepository
 import com.bst.spbseekerserver.service.api.CategoryService

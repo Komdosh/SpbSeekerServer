@@ -16,8 +16,6 @@ data class User(
         @Enumerated(EnumType.STRING)
         val roles: Set<UserRole>
 ) {
-        constructor(user: User) : this(user.id, user.email, user.password, user.roles)
-
         fun toDto(): UserDto = UserDto(
                 id = this.id!!,
                 email = this.email,

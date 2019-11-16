@@ -1,7 +1,7 @@
 package com.bst.spbseekerserver.service.impl
 
 import com.bst.spbseekerserver.logger
-import com.bst.spbseekerserver.model.dto.RouteDto
+import com.bst.spbseekerserver.model.dto.route.RouteDto
 import com.bst.spbseekerserver.model.entity.Route
 import com.bst.spbseekerserver.repository.RouteRepository
 import com.bst.spbseekerserver.service.api.CategoryService

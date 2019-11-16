@@ -1,6 +1,6 @@
 package com.bst.spbseekerserver.controller.api
 
-import com.bst.spbseekerserver.model.dto.CategoryDto
+import com.bst.spbseekerserver.model.dto.category.CategoryDto
 import com.bst.spbseekerserver.service.api.CategoryService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation

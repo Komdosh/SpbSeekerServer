@@ -1,7 +1,7 @@
 package com.bst.spbseekerserver.controller.api
 
-import com.bst.spbseekerserver.model.dto.RouteDto
 import com.bst.spbseekerserver.model.dto.RouteWithPointsDto
+import com.bst.spbseekerserver.model.dto.route.RouteDto
 import com.bst.spbseekerserver.service.api.RouteService
 import com.bst.spbseekerserver.service.api.RouteWithPointsService
 import io.swagger.annotations.Api
@@ -27,7 +27,7 @@ class RouteController(val routeService: RouteService, val routeWithPointsService
 
     @ApiOperation(value = "Save route", response = RouteDto::class)
     @PostMapping
-    fun save(@RequestBody route:RouteDto): RouteDto = routeService.saveRoute(route)
+    fun save(@RequestBody route: RouteDto): RouteDto = routeService.saveRoute(route)
 
     @ApiOperation(value = "Delete one route by id", response = Long::class)
     @DeleteMapping("/{id}")

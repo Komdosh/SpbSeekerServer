@@ -1,6 +1,6 @@
 package com.bst.spbseekerserver.service.api
 
-import com.bst.spbseekerserver.model.dto.PointDto
+import com.bst.spbseekerserver.model.dto.point.PointDto
 import com.bst.spbseekerserver.model.entity.Point
 
 interface PointService {

@@ -1,5 +1,7 @@
 package com.bst.spbseekerserver.model.dto
 
+import com.bst.spbseekerserver.model.dto.point.PointDto
+import com.bst.spbseekerserver.model.dto.route.RouteDto
 import io.swagger.annotations.ApiModelProperty
 import org.springframework.data.annotation.CreatedBy
 import java.util.*

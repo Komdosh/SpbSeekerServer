@@ -1,6 +1,6 @@
 package com.bst.spbseekerserver.model.entity
 
-import com.bst.spbseekerserver.model.dto.CategoryDto
+import com.bst.spbseekerserver.model.dto.category.CategoryDto
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import org.springframework.data.annotation.CreatedBy

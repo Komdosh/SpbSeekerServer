@@ -1,6 +1,6 @@
 package com.bst.spbseekerserver.model.entity
 
-import com.bst.spbseekerserver.model.dto.RouteDto
+import com.bst.spbseekerserver.model.dto.route.RouteDto
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import org.springframework.data.annotation.CreatedBy

@@ -1,7 +1,7 @@
 package com.bst.spbseekerserver.service.impl
 
 import com.bst.spbseekerserver.logger
-import com.bst.spbseekerserver.model.dto.HintDto
+import com.bst.spbseekerserver.model.dto.hint.HintDto
 import com.bst.spbseekerserver.model.entity.Hint
 import com.bst.spbseekerserver.repository.HintRepository
 import com.bst.spbseekerserver.service.api.HintService

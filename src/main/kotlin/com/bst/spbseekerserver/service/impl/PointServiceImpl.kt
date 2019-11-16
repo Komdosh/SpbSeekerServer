@@ -1,7 +1,7 @@
 package com.bst.spbseekerserver.service.impl
 
 import com.bst.spbseekerserver.logger
-import com.bst.spbseekerserver.model.dto.PointDto
+import com.bst.spbseekerserver.model.dto.point.PointDto
 import com.bst.spbseekerserver.model.entity.Point
 import com.bst.spbseekerserver.model.location.Location
 import com.bst.spbseekerserver.repository.PointRepository

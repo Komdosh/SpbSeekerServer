@@ -1,6 +1,6 @@
 package com.bst.spbseekerserver.service.api
 
-import com.bst.spbseekerserver.model.dto.RouteDto
+import com.bst.spbseekerserver.model.dto.route.RouteDto
 import com.bst.spbseekerserver.model.entity.Route
 
 interface RouteService {

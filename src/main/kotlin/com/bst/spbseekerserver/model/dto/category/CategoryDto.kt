@@ -1,4 +1,4 @@
-package com.bst.spbseekerserver.model.dto
+package com.bst.spbseekerserver.model.dto.category
 
 import com.bst.spbseekerserver.model.entity.Category
 import io.swagger.annotations.ApiModelProperty

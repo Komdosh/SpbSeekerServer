@@ -1,6 +1,6 @@
 package com.bst.spbseekerserver.service.api
 
-import com.bst.spbseekerserver.model.dto.CategoryDto
+import com.bst.spbseekerserver.model.dto.category.CategoryDto
 import com.bst.spbseekerserver.model.entity.Category
 
 interface CategoryService {

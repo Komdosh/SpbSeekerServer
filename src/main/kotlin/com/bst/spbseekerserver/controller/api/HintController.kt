@@ -1,6 +1,6 @@
 package com.bst.spbseekerserver.controller.api
 
-import com.bst.spbseekerserver.model.dto.HintDto
+import com.bst.spbseekerserver.model.dto.hint.HintDto
 import com.bst.spbseekerserver.service.api.HintService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation

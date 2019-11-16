@@ -1,4 +1,4 @@
-package com.bst.spbseekerserver.model.dto
+package com.bst.spbseekerserver.model.dto.point
 
 import com.bst.spbseekerserver.model.entity.Point
 import com.bst.spbseekerserver.model.entity.Route
