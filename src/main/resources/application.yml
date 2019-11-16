@@ -1,8 +1,9 @@
 spring:
   datasource:
-    url: jdbc:postgresql://185.91.53.30:5432/spbseeker
-    username: postgres
-    password: psql
+#    url: jdbc:postgresql://185.91.53.30:5432/spbseeker
+    url: jdbc:postgresql://localhost:5439/spbseeker
+    username: spbseeker
+    password: spbseeker
   jpa:
     properties:
       hibernate:
@@ -12,8 +13,6 @@ spring:
     hibernate:
       ddl-auto: update
   #Additional Spring configuration
-  mvc:
-    throw-exception-if-no-handler-found: true
   devtools:
     livereload:
       enabled: false

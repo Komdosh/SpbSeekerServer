@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  spbseeker-db:
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5439:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: psql
+    volumes:
+      - spbseekerpgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/ainit.sql
+      - ./init.sh:/docker-entrypoint-initdb.d/init.sh
+volumes:
+  spbseekerpgdata:

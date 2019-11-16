@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
 	val kotlinVersion = "1.3.50"
-    val springVersion = "2.1.9.RELEASE"
+    val springVersion = "2.2.0.RELEASE"
 	id("org.springframework.boot") version springVersion
 	id("io.spring.dependency-management") version "1.0.8.RELEASE"
 	kotlin("jvm") version kotlinVersion
@@ -53,6 +53,6 @@ dependencies {
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "12"
+		jvmTarget = JavaVersion.VERSION_12.majorVersion
 	}
 }
