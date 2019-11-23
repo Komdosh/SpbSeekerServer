@@ -8,10 +8,13 @@ import com.bst.spbseekerserver.service.api.RouteService
 import org.springframework.stereotype.Service
 import kotlin.random.Random
 
-const val NEAREST_POINT_METERS = 1000
 
 @Service
 class AutoRoutingServiceImpl(val pointService: PointService, val routeService: RouteService) : AutoRoutingService {
+
+    companion object {
+        const val NEAREST_POINT_METERS = 1000
+    }
 
     override fun generateRoute(latitude: Double, longitude: Double): RouteDto {
         val current = Location(latitude, longitude)

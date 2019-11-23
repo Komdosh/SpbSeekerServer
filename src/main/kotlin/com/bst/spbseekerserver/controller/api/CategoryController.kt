@@ -1,6 +1,8 @@
 package com.bst.spbseekerserver.controller.api
 
 import com.bst.spbseekerserver.model.dto.category.CategoryDto
+import com.bst.spbseekerserver.model.dto.category.CreateCategoryDto
+import com.bst.spbseekerserver.model.dto.category.UpdateCategoryDto
 import com.bst.spbseekerserver.service.api.CategoryService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
@@ -11,19 +13,23 @@ import org.springframework.web.bind.annotation.*
 @Api(value = "category", description = "Rest API for categories", tags = ["Category API"])
 @RequestMapping(value = ["/api/v1/category"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class CategoryController(val categoryService: CategoryService) {
-    @ApiOperation(value = "Fetching one category by id", response = CategoryDto::class)
     @GetMapping("/{id}")
-    fun get(@PathVariable("id") categoryId: Long): CategoryDto = categoryService.getCategory(categoryId)
+    @ApiOperation(value = "Fetching one category by id", response = CategoryDto::class)
+    fun get(@PathVariable("id") categoryId: Long): CategoryDto = categoryService.getCategoryDto(categoryId)
 
-    @ApiOperation(value = "Fetching all categories", responseContainer = "List", response = CategoryDto::class)
     @GetMapping
+    @ApiOperation(value = "Fetching all categories", responseContainer = "List", response = CategoryDto::class)
     fun getAll(): List<CategoryDto> = categoryService.getAllCategories()
 
-    @ApiOperation(value = "Save category", response = CategoryDto::class)
     @PostMapping
-    fun save(@RequestBody category: CategoryDto): CategoryDto = categoryService.saveCategory(category)
+    @ApiOperation(value = "Create category", response = CategoryDto::class)
+    fun create(@RequestBody createCategoryDto: CreateCategoryDto): CategoryDto = categoryService.createCategory(createCategoryDto)
 
-    @ApiOperation(value = "Delete one category by id", response = Long::class)
+    @PutMapping("/{id}")
+    @ApiOperation(value = "Update category", response = CategoryDto::class)
+    fun update(@PathVariable("id") categoryId: Long, @RequestBody updateCategoryDto: UpdateCategoryDto): CategoryDto = categoryService.updateCategory(updateCategoryDto, categoryId)
+
     @DeleteMapping("/{id}")
+    @ApiOperation(value = "Delete one category by id", response = Long::class)
     fun delete(@PathVariable("id") categoryId: Long): Long = categoryService.deleteCategory(categoryId)
 }

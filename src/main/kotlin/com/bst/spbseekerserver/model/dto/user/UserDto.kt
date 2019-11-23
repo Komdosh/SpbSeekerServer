@@ -4,7 +4,7 @@ import com.bst.spbseekerserver.model.enums.UserRole
 import io.swagger.annotations.ApiModelProperty
 
 data class UserDto(
-        @ApiModelProperty(notes = "Id")
+        @ApiModelProperty(notes = "User Id")
         val id: Long,
         @ApiModelProperty(notes = "Email address")
         val email: String,

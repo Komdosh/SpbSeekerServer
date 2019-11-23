@@ -1,7 +1,7 @@
 package com.bst.spbseekerserver.controller.api
 
-import com.bst.spbseekerserver.model.dto.RouteWithPointsDto
 import com.bst.spbseekerserver.model.dto.route.RouteDto
+import com.bst.spbseekerserver.model.dto.route.RouteWithPointsDto
 import com.bst.spbseekerserver.service.api.RouteService
 import com.bst.spbseekerserver.service.api.RouteWithPointsService
 import io.swagger.annotations.Api

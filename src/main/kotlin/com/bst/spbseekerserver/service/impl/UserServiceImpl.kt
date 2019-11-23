@@ -8,7 +8,11 @@ import com.bst.spbseekerserver.model.entity.User
 import com.bst.spbseekerserver.repository.UserRepository
 import com.bst.spbseekerserver.service.api.UserService
 import javassist.NotFoundException
+import org.springframework.security.access.AccessDeniedException
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
+import java.security.Principal
 
 
 @Service
@@ -47,6 +51,23 @@ class UserServiceImpl(val userRepository: UserRepository) : UserService {
         }
         userRepository.delete(user)
         return id
+    }
+
+    override fun getCurrentUser(): User {
+        val principal: Principal? = SecurityContextHolder.getContext().authentication
+
+        if (principal == null || !(principal as Authentication).isAuthenticated) {
+            throw AccessDeniedException("There is not authenticated user")
+        }
+
+        val email = principal.name
+        return getUserByEmail(email)
+    }
+
+    override fun checkBelong(id: Long) {
+        if (id != getCurrentUser().id) {
+            throw AccessDeniedException("You don't have right's to delete this category")
+        }
     }
 
 }

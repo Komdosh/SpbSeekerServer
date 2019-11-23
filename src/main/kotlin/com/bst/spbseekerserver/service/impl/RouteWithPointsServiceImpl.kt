@@ -1,6 +1,6 @@
 package com.bst.spbseekerserver.service.impl
 
-import com.bst.spbseekerserver.model.dto.RouteWithPointsDto
+import com.bst.spbseekerserver.model.dto.route.RouteWithPointsDto
 import com.bst.spbseekerserver.service.api.PointService
 import com.bst.spbseekerserver.service.api.RouteService
 import com.bst.spbseekerserver.service.api.RouteWithPointsService

@@ -1,10 +1,8 @@
 package com.bst.spbseekerserver.model.entity
 
 import com.bst.spbseekerserver.model.dto.category.CategoryDto
-import org.hibernate.annotations.CreationTimestamp
-import org.hibernate.annotations.UpdateTimestamp
-import org.springframework.data.annotation.CreatedBy
-import java.util.*
+import com.bst.spbseekerserver.model.dto.category.CreateCategoryDto
+import com.bst.spbseekerserver.model.dto.category.UpdateCategoryDto
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
@@ -14,27 +12,26 @@ import javax.persistence.Id
 data class Category(
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
         val id: Long?,
-        var name: String,
-        var imgUrl: String,
-        @CreatedBy private var adminId: Long,
-        @CreationTimestamp val createdDate: Date?,
-        @UpdateTimestamp val updatedDate: Date?
-) {
-
-    constructor(id: Long?, name: String, adminId: Long, imgUrl: String)
-            : this(id, name, imgUrl, adminId, createdDate = null, updatedDate = null)
+        val name: String,
+        val imgUrl: String
+) : Meta() {
 
     fun toDto(): CategoryDto = CategoryDto(
-            id,
-            name,
-            adminId,
-            imgUrl,
-            createdDate!!,
-            updatedDate!!
+            id = id!!,
+            name = name,
+            imgUrl = imgUrl,
+            meta = metaDto()
     )
 
-    fun update(categoryDto: CategoryDto) {
-        name = categoryDto.name
-        imgUrl = categoryDto.imgUrl
+    companion object {
+        fun fromDto(dto: CreateCategoryDto) = Category(
+                id = null,
+                name = dto.name,
+                imgUrl = dto.imgUrl)
+
+        fun fromDto(dto: UpdateCategoryDto, entity: Category) = Category(
+                id = entity.id,
+                name = dto.name ?: entity.name,
+                imgUrl = dto.imgUrl ?: entity.imgUrl)
     }
 }
