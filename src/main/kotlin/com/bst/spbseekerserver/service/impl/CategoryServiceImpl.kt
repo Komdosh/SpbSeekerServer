@@ -39,9 +39,9 @@ class CategoryServiceImpl(val categoryRepository: CategoryRepository,
     override fun create(createDto: CreateCategoryDto): CategoryDto {
         logger.debug { "Attempting to create $createDto" }
 
-        val savedCategory = categoryRepository.save(Category.fromDto(createDto))
-        logger.debug { "Category $savedCategory saved successfully" }
-        return savedCategory.toDto()
+        val saved = categoryRepository.save(Category.fromDto(createDto))
+        logger.debug { "Category $saved saved successfully" }
+        return saved.toDto()
     }
 
     override fun update(updateDto: UpdateCategoryDto, updatedId: Long): CategoryDto {
@@ -50,21 +50,18 @@ class CategoryServiceImpl(val categoryRepository: CategoryRepository,
         val entity = get(updatedId)
         userService.checkBelong(entity.createdBy.id)
 
-        val savedCategory = categoryRepository.save(Category.fromDto(updateDto, get(updatedId)))
-        logger.debug { "Category $savedCategory saved successfully" }
-        return savedCategory.toDto()
+        val saved = categoryRepository.save(Category.fromDto(updateDto, get(updatedId)))
+        logger.debug { "Category $saved saved successfully" }
+        return saved.toDto()
     }
 
     override fun delete(id: Long): Long {
         logger.debug { "Attempting to delete category with id: $id" }
-        val category = categoryRepository.findById(id).orElseThrow {
-            logger.error { "Category with provided id: $id, doesn't exists" }
-            throw NotFoundException("Category with provided id doesn't exists")
-        }
 
-        userService.checkBelong(category.createdBy.id)
+        val entity = get(id)
+        userService.checkBelong(entity.createdBy.id)
 
-        categoryRepository.delete(category)
+        categoryRepository.delete(entity)
         return id
     }
 }

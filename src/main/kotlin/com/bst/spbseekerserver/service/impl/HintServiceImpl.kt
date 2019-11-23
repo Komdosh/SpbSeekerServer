@@ -37,20 +37,20 @@ class HintServiceImpl(val hintRepository: HintRepository, val userService: UserS
 
     override fun delete(id: Long): Long {
         logger.debug { "Attempting to delete hint with id: $id" }
-        val hint = hintRepository.findById(id).orElseThrow {
-            logger.error { "Hint with provided id: $id, doesn't exists" }
-            throw NotFoundException("Hint with provided id doesn't exists")
-        }
-        hintRepository.delete(hint)
+
+        val entity = get(id)
+        userService.checkBelong(entity.createdBy.id)
+
+        hintRepository.delete(entity)
         return id
     }
 
     override fun create(createDto: CreateHintDto): HintDto {
         logger.debug { "Attempting to create $createDto" }
 
-        val savedCategory = hintRepository.save(Hint.fromDto(createDto))
-        logger.debug { "Hint $savedCategory saved successfully" }
-        return savedCategory.toDto()
+        val saved = hintRepository.save(Hint.fromDto(createDto))
+        logger.debug { "Hint $saved saved successfully" }
+        return saved.toDto()
     }
 
     override fun update(updateDto: UpdateHintDto, updatedId: Long): HintDto {
@@ -59,8 +59,8 @@ class HintServiceImpl(val hintRepository: HintRepository, val userService: UserS
         val entity = get(updatedId)
         userService.checkBelong(entity.createdBy.id)
 
-        val savedCategory = hintRepository.save(Hint.fromDto(updateDto, get(updatedId)))
-        logger.debug { "Hint $savedCategory saved successfully" }
-        return savedCategory.toDto()
+        val saved = hintRepository.save(Hint.fromDto(updateDto, get(updatedId)))
+        logger.debug { "Hint $saved saved successfully" }
+        return saved.toDto()
     }
 }

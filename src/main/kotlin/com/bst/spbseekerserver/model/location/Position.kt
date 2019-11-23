@@ -4,8 +4,8 @@ import kotlin.math.*
 
 const val EARTH_RADIUS = 6371 // Radius of the earth
 
-data class Location(val latitude: Double, val longitude: Double, val altitude: Double = 0.0) {
-    fun distanceTo(target: Location): Double {
+data class Position(val latitude: Double, val longitude: Double, val altitude: Double = 0.0) {
+    fun distanceTo(target: Position): Double {
         val latDistance = Math.toRadians(target.latitude - latitude)
         val lonDistance = Math.toRadians(target.longitude - longitude)
         val a = sin(latDistance / 2) * sin(latDistance / 2) + (cos(Math.toRadians(latitude)) * cos(Math.toRadians(target.latitude))
