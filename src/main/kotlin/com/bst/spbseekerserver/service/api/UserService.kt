@@ -9,10 +9,10 @@ import org.springframework.security.access.AccessDeniedException
 
 interface UserService {
     fun getUserByEmail(email: String): User
-    fun deleteUser(id: Long): Long
-    fun updateUser(updateUserDto: UpdateUserDto, email: String): UserDto
-    fun createUser(createUserDto: CreateUserDto): UserDto
+    fun delete(id: Long): Long
+    fun update(updateDto: UpdateUserDto, email: String): UserDto
+    fun create(createDto: CreateUserDto): UserDto
     fun getCurrentUser(): User
     @Throws(AccessDeniedException::class)
-    fun checkBelong(id: Long)
+    fun checkBelong(id: Long?)
 }

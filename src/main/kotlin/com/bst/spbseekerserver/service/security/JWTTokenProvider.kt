@@ -10,14 +10,12 @@ import java.util.*
 
 
 @Component
-class JWTTokenProvider {
-
-    @Value("\${jwt.secret:sec}")
-    lateinit var jwtSecret: String
-
-    @Value("\${jwt.expirationInMs:5000}")
-    var jwtExpirationInMs: Int = 0
-
+class JWTTokenProvider(
+        @Value("\${jwt.secret:sec}")
+        val jwtSecret: String,
+        @Value("\${jwt.expirationInMs:5000}")
+        val jwtExpirationInMs: Int
+) {
     fun generateToken(userPrincipal: UserPrincipal): String {
 
         val roles = userPrincipal.authorities.map { it.authority }

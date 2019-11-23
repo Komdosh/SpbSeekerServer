@@ -12,8 +12,8 @@ import javax.persistence.Id
 data class Category(
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
         val id: Long?,
-        val name: String,
-        val imgUrl: String
+        var name: String,
+        var imgUrl: String
 ) : Meta() {
 
     fun toDto(): CategoryDto = CategoryDto(
@@ -29,9 +29,10 @@ data class Category(
                 name = dto.name,
                 imgUrl = dto.imgUrl)
 
-        fun fromDto(dto: UpdateCategoryDto, entity: Category) = Category(
-                id = entity.id,
-                name = dto.name ?: entity.name,
-                imgUrl = dto.imgUrl ?: entity.imgUrl)
+        fun fromDto(dto: UpdateCategoryDto, entity: Category): Category {
+            entity.imgUrl = dto.imgUrl ?: entity.imgUrl
+            entity.name = dto.name ?: entity.name
+            return entity
+        }
     }
 }

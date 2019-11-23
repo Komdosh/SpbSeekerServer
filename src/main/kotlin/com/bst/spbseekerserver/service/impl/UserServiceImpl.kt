@@ -17,18 +17,18 @@ import java.security.Principal
 
 @Service
 class UserServiceImpl(val userRepository: UserRepository) : UserService {
-    override fun updateUser(updateUserDto: UpdateUserDto, email: String): UserDto {
-        logger.debug { "Attempting to update $updateUserDto" }
+    override fun update(updateDto: UpdateUserDto, email: String): UserDto {
+        logger.debug { "Attempting to update $updateDto" }
         val user = getUserByEmail(email)
-        val savedUser = userRepository.save(User.fromDto(updateUserDto, user))
+        val savedUser = userRepository.save(User.fromDto(updateDto, user))
         logger.debug { "User $savedUser saved successfully" }
         return savedUser.toDto()
     }
 
-    override fun createUser(createUserDto: CreateUserDto): UserDto {
-        logger.debug { "Attempting to create $createUserDto" }
+    override fun create(createDto: CreateUserDto): UserDto {
+        logger.debug { "Attempting to create $createDto" }
 
-        val savedUser = userRepository.save(User.fromDto(createUserDto))
+        val savedUser = userRepository.save(User.fromDto(createDto))
         logger.debug { "User $savedUser saved successfully" }
         return savedUser.toDto()
     }
@@ -43,7 +43,7 @@ class UserServiceImpl(val userRepository: UserRepository) : UserService {
         return user
     }
 
-    override fun deleteUser(id: Long): Long {
+    override fun delete(id: Long): Long {
         logger.debug { "Attempting to delete user with id: $id" }
         val user = userRepository.findById(id).orElseThrow {
             logger.error { "User with provided id: $id, doesn't exists" }
@@ -64,7 +64,7 @@ class UserServiceImpl(val userRepository: UserRepository) : UserService {
         return getUserByEmail(email)
     }
 
-    override fun checkBelong(id: Long) {
+    override fun checkBelong(id: Long?) {
         if (id != getCurrentUser().id) {
             throw AccessDeniedException("You don't have right's to delete this category")
         }

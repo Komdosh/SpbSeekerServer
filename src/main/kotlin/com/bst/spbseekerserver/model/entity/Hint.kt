@@ -1,6 +1,8 @@
 package com.bst.spbseekerserver.model.entity
 
+import com.bst.spbseekerserver.model.dto.hint.CreateHintDto
 import com.bst.spbseekerserver.model.dto.hint.HintDto
+import com.bst.spbseekerserver.model.dto.hint.UpdateHintDto
 import com.bst.spbseekerserver.model.enums.HintAction
 import javax.persistence.*
 
@@ -12,23 +14,34 @@ data class Hint(
         var imgUrl: String,
         var description: String,
         var shortDescription: String,
-        @Enumerated(EnumType.STRING) var hintAction: HintAction
-) {
+        @Enumerated(EnumType.STRING) val hintAction: HintAction
+) : Meta() {
 
     fun toDto(): HintDto = HintDto(
-            id,
-            name,
-            imgUrl,
-            description,
-            shortDescription,
-            hintAction
+            id = id!!,
+            name = name,
+            imgUrl = imgUrl,
+            description = description,
+            shortDescription = shortDescription,
+            hintAction = hintAction,
+            meta = metaDto()
     )
 
-    fun update(hintDto: HintDto) {
-        name = hintDto.name
-        imgUrl = hintDto.imgUrl
-        description = hintDto.description
-        shortDescription = hintDto.shortDescription
-        hintAction = hintDto.hintAction
+    companion object {
+        fun fromDto(dto: CreateHintDto) = Hint(
+                id = null,
+                name = dto.name,
+                imgUrl = dto.imgUrl,
+                description = dto.description,
+                shortDescription = dto.shortDescription,
+                hintAction = dto.hintAction)
+
+        fun fromDto(dto: UpdateHintDto, entity: Hint): Hint {
+            entity.name = dto.name ?: entity.name
+            entity.imgUrl = dto.imgUrl ?: entity.imgUrl
+            entity.description = dto.description ?: entity.description
+            entity.shortDescription = dto.shortDescription ?: entity.shortDescription
+            return entity
+        }
     }
 }

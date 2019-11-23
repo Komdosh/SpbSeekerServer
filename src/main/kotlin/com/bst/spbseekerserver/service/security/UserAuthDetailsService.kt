@@ -1,4 +1,4 @@
-package com.bst.spbseekerserver.service
+package com.bst.spbseekerserver.service.security
 
 import com.bst.spbseekerserver.model.security.UserPrincipal
 import com.bst.spbseekerserver.repository.UserRepository

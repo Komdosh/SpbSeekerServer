@@ -13,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder
 val logger = KotlinLogging.logger {}
 
 @SpringBootApplication
-
 class SpbSeekerApplication {
     @Bean
     fun init(userRepository: UserRepository, passwordEncoder: PasswordEncoder) = ApplicationRunner {

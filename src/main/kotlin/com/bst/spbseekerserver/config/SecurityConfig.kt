@@ -1,9 +1,9 @@
 package com.bst.spbseekerserver.config
 
 import com.bst.spbseekerserver.config.filter.JwtAuthenticationFilter
-import com.bst.spbseekerserver.service.UserAuthDetailsService
 import com.bst.spbseekerserver.service.security.InvalidLoginAttemptHandler
 import com.bst.spbseekerserver.service.security.JWTTokenProvider
+import com.bst.spbseekerserver.service.security.UserAuthDetailsService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -37,7 +37,6 @@ class SecurityConfig(
     }
 
     @Bean
-    @Throws(Exception::class)
     override fun authenticationManagerBean(): AuthenticationManager {
         return super.authenticationManagerBean()
     }

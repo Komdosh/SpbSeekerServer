@@ -24,16 +24,16 @@ class UserController(val userService: UserService) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create user", response = UserDto::class)
-    fun create(@RequestBody @Valid createUserDto: CreateUserDto): UserDto = userService.createUser(createUserDto)
+    fun create(@RequestBody @Valid createUserDto: CreateUserDto): UserDto = userService.create(createUserDto)
 
     @PutMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ApiOperation(value = "Update user", response = UserDto::class)
-    fun update(@RequestBody updateUserDto: UpdateUserDto, principal: Principal): UserDto = userService.updateUser(updateUserDto, principal.name)
+    fun update(@RequestBody updateUserDto: UpdateUserDto, principal: Principal): UserDto = userService.update(updateUserDto, principal.name)
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PreAuthorize("hasAuthority('ADMIN')")
     @ApiOperation(value = "Delete one user by id", response = Boolean::class)
-    fun delete(@PathVariable("id") userId: Long): Long = userService.deleteUser(userId)
+    fun delete(@PathVariable("id") userId: Long): Long = userService.delete(userId)
 }

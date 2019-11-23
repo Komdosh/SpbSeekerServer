@@ -8,7 +8,6 @@ import com.bst.spbseekerserver.service.api.CategoryService
 import com.bst.spbseekerserver.service.api.RouteService
 import javassist.NotFoundException
 import org.springframework.stereotype.Service
-import java.util.*
 
 
 @Service
@@ -43,18 +42,17 @@ class RouteServiceImpl(val routeRepository: RouteRepository, val categoryService
 
     override fun saveRoute(route: RouteDto): RouteDto {
         logger.debug { "Attempting to save route $route" }
-        val category = categoryService.getCategoryDto(route.categoryId)
+        val category = categoryService.get(route.categoryId)
 
-/*
-        var routeEntity = route.toEntity(Category.fromDto(category))
+        var routeEntity = route.toEntity(category)
         route.id?.let {
             routeEntity = getRouteEntity(it)
             routeEntity.update(route)
         }
 
-        val savedroute = routeRepository.save(routeEntity).toDto()*/
-        //      logger.debug { "Route $savedroute saved successfully" }
-        return RouteDto(null, "", 0L, "", "", 0L, Date(), Date())
+        val savedRoute = routeRepository.save(routeEntity).toDto()
+        logger.debug { "Route $savedRoute saved successfully" }
+        return savedRoute
     }
 
     override fun getRoute(id: Long): RouteDto {

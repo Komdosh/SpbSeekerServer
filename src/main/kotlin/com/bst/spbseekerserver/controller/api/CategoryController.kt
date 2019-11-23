@@ -15,21 +15,21 @@ import org.springframework.web.bind.annotation.*
 class CategoryController(val categoryService: CategoryService) {
     @GetMapping("/{id}")
     @ApiOperation(value = "Fetching one category by id", response = CategoryDto::class)
-    fun get(@PathVariable("id") categoryId: Long): CategoryDto = categoryService.getCategoryDto(categoryId)
+    fun get(@PathVariable("id") categoryId: Long): CategoryDto = categoryService.getDto(categoryId)
 
     @GetMapping
     @ApiOperation(value = "Fetching all categories", responseContainer = "List", response = CategoryDto::class)
-    fun getAll(): List<CategoryDto> = categoryService.getAllCategories()
+    fun getAll(): List<CategoryDto> = categoryService.getAll()
 
     @PostMapping
     @ApiOperation(value = "Create category", response = CategoryDto::class)
-    fun create(@RequestBody createCategoryDto: CreateCategoryDto): CategoryDto = categoryService.createCategory(createCategoryDto)
+    fun create(@RequestBody createCategoryDto: CreateCategoryDto): CategoryDto = categoryService.create(createCategoryDto)
 
     @PutMapping("/{id}")
     @ApiOperation(value = "Update category", response = CategoryDto::class)
-    fun update(@PathVariable("id") categoryId: Long, @RequestBody updateCategoryDto: UpdateCategoryDto): CategoryDto = categoryService.updateCategory(updateCategoryDto, categoryId)
+    fun update(@PathVariable("id") categoryId: Long, @RequestBody updateCategoryDto: UpdateCategoryDto): CategoryDto = categoryService.update(updateCategoryDto, categoryId)
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Delete one category by id", response = Long::class)
-    fun delete(@PathVariable("id") categoryId: Long): Long = categoryService.deleteCategory(categoryId)
+    fun delete(@PathVariable("id") categoryId: Long): Long = categoryService.delete(categoryId)
 }

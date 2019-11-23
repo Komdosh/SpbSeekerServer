@@ -1,7 +1,7 @@
 package com.bst.spbseekerserver.config.filter
 
-import com.bst.spbseekerserver.service.UserAuthDetailsService
 import com.bst.spbseekerserver.service.security.JWTTokenProvider
+import com.bst.spbseekerserver.service.security.UserAuthDetailsService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter

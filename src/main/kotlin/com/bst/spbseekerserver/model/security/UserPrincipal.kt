@@ -9,9 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails
 class UserPrincipal(
         private val email: String,
         private val password: String,
-        private val authorities: Collection<GrantedAuthority>
+        private val authorities: Collection<GrantedAuthority>,
+        val user: User
 ) : UserDetails {
-
 
     override fun getAuthorities(): Collection<GrantedAuthority> {
         return authorities
@@ -44,7 +44,7 @@ class UserPrincipal(
     companion object {
         fun create(user: User): UserPrincipal {
             val authorities = user.roles.map { SimpleGrantedAuthority(it.name) }
-            return UserPrincipal(user.email, user.password, authorities)
+            return UserPrincipal(user.email, user.password, authorities, user)
         }
     }
 
