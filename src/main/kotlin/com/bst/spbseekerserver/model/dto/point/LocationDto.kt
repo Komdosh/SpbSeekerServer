@@ -9,7 +9,7 @@ import org.springframework.data.annotation.CreatedBy
 import org.springframework.lang.Nullable
 import java.util.*
 
-data class PointDto(
+data class LocationDto(
         @ApiModelProperty(notes = "Point id")
         val id: Long?,
         @ApiModelProperty(notes = "Name of point", required = true)

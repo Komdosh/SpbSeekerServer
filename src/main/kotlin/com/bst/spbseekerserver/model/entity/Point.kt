@@ -1,6 +1,6 @@
 package com.bst.spbseekerserver.model.entity
 
-import com.bst.spbseekerserver.model.dto.point.PointDto
+import com.bst.spbseekerserver.model.dto.point.LocationDto
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import org.springframework.data.annotation.CreatedBy
@@ -29,7 +29,7 @@ data class Point(
             : this(id, name, adminId, imgUrlList, description, shortDescription, orderNum, latitude,
             longitude, createdDate = null, updatedDate = null, route = route)
 
-    fun toDto(): PointDto = PointDto(
+    fun toDto(): LocationDto = LocationDto(
             id,
             name,
             adminId,
@@ -44,14 +44,14 @@ data class Point(
             route?.id
     )
 
-    fun update(pointDto: PointDto) {
-        name = pointDto.name
-        imgUrlList = pointDto.imgUrlList
-        description = pointDto.description
-        shortDescription = pointDto.shortDescription
-        orderNum = pointDto.orderNum
-        latitude = pointDto.latitude
-        longitude = pointDto.longitude
+    fun update(locationDto: LocationDto) {
+        name = locationDto.name
+        imgUrlList = locationDto.imgUrlList
+        description = locationDto.description
+        shortDescription = locationDto.shortDescription
+        orderNum = locationDto.orderNum
+        latitude = locationDto.latitude
+        longitude = locationDto.longitude
     }
 
 }

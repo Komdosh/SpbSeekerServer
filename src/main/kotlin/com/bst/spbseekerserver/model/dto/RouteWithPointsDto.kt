@@ -1,6 +1,6 @@
 package com.bst.spbseekerserver.model.dto
 
-import com.bst.spbseekerserver.model.dto.point.PointDto
+import com.bst.spbseekerserver.model.dto.point.LocationDto
 import com.bst.spbseekerserver.model.dto.route.RouteDto
 import io.swagger.annotations.ApiModelProperty
 import org.springframework.data.annotation.CreatedBy
@@ -24,9 +24,9 @@ data class RouteWithPointsDto(
         @ApiModelProperty(notes = "Date when administrator updated this route")
         val updatedDate: Date?,
         @ApiModelProperty(notes = "List of points", dataType = "List")
-        val points: List<PointDto>
+        val locations: List<LocationDto>
 ) {
-    constructor(route: RouteDto, points: List<PointDto>) :
+        constructor(route: RouteDto, locations: List<LocationDto>) :
             this(route.id, route.name, route.adminId, route.imgUrl, route.description,
-                    route.categoryId, route.createdDate, route.updatedDate, points)
+                    route.categoryId, route.createdDate, route.updatedDate, locations)
 }

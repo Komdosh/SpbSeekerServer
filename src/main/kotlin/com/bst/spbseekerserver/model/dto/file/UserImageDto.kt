@@ -1,3 +1,8 @@
 package com.bst.spbseekerserver.model.dto.file
 
-data class UserImageDto(val url: String)
+import io.swagger.annotations.ApiModelProperty
+
+data class UserImageDto(
+        @ApiModelProperty(notes = "Url to fetch uploaded file")
+        val url: String
+)

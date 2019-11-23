@@ -1,7 +1,7 @@
 package com.bst.spbseekerserver.service.impl
 
 import com.bst.spbseekerserver.logger
-import com.bst.spbseekerserver.model.dto.point.PointDto
+import com.bst.spbseekerserver.model.dto.point.LocationDto
 import com.bst.spbseekerserver.model.entity.Point
 import com.bst.spbseekerserver.model.location.Location
 import com.bst.spbseekerserver.repository.PointRepository
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class PointServiceImpl(val pointRepository: PointRepository, val routeService: RouteService) : PointService {
-    override fun getPoint(id: Long): PointDto {
+    override fun getPoint(id: Long): LocationDto {
         return getPointEntity(id).toDto()
     }
 
@@ -27,7 +27,7 @@ class PointServiceImpl(val pointRepository: PointRepository, val routeService: R
         return point
     }
 
-    override fun getAllPoints(): List<PointDto> {
+    override fun getAllPoints(): List<LocationDto> {
         logger.debug { "Attempting to fetch all points" }
         val points = pointRepository.findAll().map { it.toDto() }
         logger.debug { "Fetched points: $points" }
@@ -44,17 +44,17 @@ class PointServiceImpl(val pointRepository: PointRepository, val routeService: R
         return id
     }
 
-    override fun savePoint(point: PointDto): PointDto {
-        logger.debug { "Attempting to save point $point" }
+    override fun savePoint(location: LocationDto): LocationDto {
+        logger.debug { "Attempting to save point $location" }
 
-        val route = point.routeId?.let {
+        val route = location.routeId?.let {
             routeService.getRouteEntity(it)
         }
 
-        var pointEntity = point.toEntity(route)
-        point.id?.let {
+        var pointEntity = location.toEntity(route)
+        location.id?.let {
             pointEntity = getPointEntity(it)
-            pointEntity.update(point)
+            pointEntity.update(location)
         }
 
         val savedPoint = pointRepository.save(pointEntity).toDto()
@@ -62,7 +62,7 @@ class PointServiceImpl(val pointRepository: PointRepository, val routeService: R
         return savedPoint
     }
 
-    override fun getAllPointsByRouteId(routeId: Long): List<PointDto> {
+    override fun getAllPointsByRouteId(routeId: Long): List<LocationDto> {
         logger.debug { "Attempting to fetch points by routeId: $routeId" }
         val points = pointRepository.findAllByRouteId(routeId).orElseThrow {
             logger.error { "Points with provided routeId: $routeId, doesn't exists" }
@@ -72,7 +72,7 @@ class PointServiceImpl(val pointRepository: PointRepository, val routeService: R
         return points
     }
 
-    override fun getNearestPoint(latitude: Double, longitude: Double): PointDto {
+    override fun getNearestPoint(latitude: Double, longitude: Double): LocationDto {
         val points = pointRepository.findAll()
         val source = Location(latitude, longitude)
         logger.debug { "Attempting to fetch nearest point for location: $source" }
