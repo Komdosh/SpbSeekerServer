@@ -4,19 +4,18 @@ import com.bst.spbseekerserver.model.dto.route.RouteDto
 import com.bst.spbseekerserver.model.location.Position
 import com.bst.spbseekerserver.service.api.AutoRoutingService
 import com.bst.spbseekerserver.service.api.LocationService
-import com.bst.spbseekerserver.service.api.RouteService
 import org.springframework.stereotype.Service
 import kotlin.random.Random
 
 
 @Service
-class AutoRoutingServiceImpl(val locationService: LocationService, val routeService: RouteService) : AutoRoutingService {
+class AutoRoutingServiceImpl(val locationService: LocationService) : AutoRoutingService {
 
     companion object {
         const val NEAREST_POINT_METERS = 1000
     }
 
-    override fun generateRoute(latitude: Double, longitude: Double): RouteDto {
+    override fun generateRoute(latitude: Double, longitude: Double): RouteDto? {
         val current = Position(latitude, longitude)
         val nearest = locationService.getNearestPoint(latitude, longitude)
 
@@ -26,7 +25,7 @@ class AutoRoutingServiceImpl(val locationService: LocationService, val routeServ
 
         val left = points.filter { start.longitude < nearest.longitude }
 
-        return RouteDto(0, "", 0, "", "", 0, null, null)
+        return null
     }
 
 }

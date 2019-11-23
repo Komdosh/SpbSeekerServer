@@ -1,10 +1,8 @@
 package com.bst.spbseekerserver.model.entity
 
+import com.bst.spbseekerserver.model.dto.route.CreateRouteDto
 import com.bst.spbseekerserver.model.dto.route.RouteDto
-import org.hibernate.annotations.CreationTimestamp
-import org.hibernate.annotations.UpdateTimestamp
-import org.springframework.data.annotation.CreatedBy
-import java.util.*
+import com.bst.spbseekerserver.model.dto.route.UpdateRouteDto
 import javax.persistence.*
 
 @Entity
@@ -12,30 +10,37 @@ data class Route(
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
         val id: Long?,
         var name: String,
-        @CreatedBy var adminId: Long,
-        var imgUrl: String,
+        @ElementCollection
+        var imgUrlList: List<String>,
         var description: String,
-        @ManyToOne var category: Category,
-        @CreationTimestamp val createdDate: Date?,
-        @UpdateTimestamp val updatedDate: Date?
-) {
-    constructor(id: Long?, name: String, adminId: Long, imgUrl: String, description: String, category: Category)
-            : this(id, name, adminId, imgUrl, description, category, createdDate = null, updatedDate = null)
+        @ManyToOne var category: Category
+) : Meta() {
 
     fun toDto(): RouteDto = RouteDto(
-            id,
-            name,
-            adminId,
-            imgUrl,
-            description,
-            category.id!!,
-            createdDate!!,
-            updatedDate!!
+            id = id!!,
+            name = name,
+            imgUrlList = imgUrlList,
+            description = description,
+            category = category.toDto(),
+            meta = metaDto()
     )
 
-    fun update(routeDto: RouteDto) {
-        name = routeDto.name
-        imgUrl = routeDto.imgUrl
-        description = routeDto.description
+    companion object {
+        fun fromDto(dto: CreateRouteDto) = Route(
+                id = null,
+                name = dto.name,
+                imgUrlList = dto.imgUrlList,
+                description = dto.description,
+                category = Category.fromDto(dto.category)
+        )
+
+        fun fromDto(dto: UpdateRouteDto, entity: Route): Route {
+            entity.name = dto.name ?: entity.name
+            entity.imgUrlList = if (dto.imgUrlList.isEmpty()) entity.imgUrlList else dto.imgUrlList
+            entity.description = dto.description ?: entity.description
+            entity.category = Category.fromDto(dto.category ?: entity.category.toDto())
+
+            return entity
+        }
     }
 }

@@ -2,9 +2,14 @@ package com.bst.spbseekerserver.model.location
 
 import kotlin.math.*
 
-const val EARTH_RADIUS = 6371 // Radius of the earth
+
 
 data class Position(val latitude: Double, val longitude: Double, val altitude: Double = 0.0) {
+
+    companion object {
+        const val EARTH_RADIUS = 6371 // Radius of the earth
+    }
+
     fun distanceTo(target: Position): Double {
         val latDistance = Math.toRadians(target.latitude - latitude)
         val lonDistance = Math.toRadians(target.longitude - longitude)

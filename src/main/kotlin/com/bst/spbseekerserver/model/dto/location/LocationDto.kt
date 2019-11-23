@@ -8,7 +8,7 @@ data class LocationDto(
         val id: Long,
         @ApiModelProperty(notes = "Name of location")
         val name: String,
-        @ApiModelProperty(notes = "List of images")
+        @ApiModelProperty(notes = "List of location images")
         val imgUrlList: List<String>,
         @ApiModelProperty(notes = "Full Description of this location")
         val description: String,

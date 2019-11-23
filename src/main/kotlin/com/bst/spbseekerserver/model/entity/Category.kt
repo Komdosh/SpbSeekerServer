@@ -34,5 +34,10 @@ data class Category(
             entity.name = dto.name ?: entity.name
             return entity
         }
+
+        fun fromDto(dto: CategoryDto) = Category(
+                id = dto.id,
+                name = dto.name,
+                imgUrl = dto.imgUrl)
     }
 }
