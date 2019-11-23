@@ -6,8 +6,8 @@ import io.swagger.annotations.ApiModelProperty
 data class UserDto(
         @ApiModelProperty(notes = "Id")
         val id: Long,
-        @ApiModelProperty(notes = "Email")
+        @ApiModelProperty(notes = "Email address")
         val email: String,
-        @ApiModelProperty(notes = "Roles")
+        @ApiModelProperty(notes = "User roles set")
         val roles: Set<UserRole>
 )

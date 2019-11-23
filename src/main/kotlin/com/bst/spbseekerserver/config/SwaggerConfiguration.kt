@@ -16,13 +16,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 import java.util.*
 
 
-const val AUTHORIZATION_HEADER = "Authorization"
-const val DEFAULT_INCLUDE_PATTERN = "/api/.*"
-
 @Configuration
 @EnableSwagger2
 @Import(springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration::class)
 class SwaggerConfiguration {
+
+    companion object {
+        const val AUTHORIZATION_HEADER = "Authorization"
+        const val DEFAULT_INCLUDE_PATTERN = "/api/.*"
+    }
 
     @Bean
     fun api(): Docket {

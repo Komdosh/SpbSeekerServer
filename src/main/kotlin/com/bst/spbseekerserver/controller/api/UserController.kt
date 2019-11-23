@@ -11,6 +11,7 @@ import org.springframework.http.MediaType
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import java.security.Principal
+import javax.validation.Valid
 
 @RestController
 @Api(value = "user", description = "Rest API for users", tags = ["User API"])
@@ -20,16 +21,18 @@ class UserController(val userService: UserService) {
     @ApiOperation(value = "Fetching user info", response = UserDto::class)
     fun userInfo(principal: Principal): UserDto = userService.getUserByEmail(principal.name).toDto()
 
-    @PutMapping
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create user", response = UserDto::class)
-    fun create(@RequestBody createUserDto: CreateUserDto): UserDto = userService.createUser(createUserDto)
+    fun create(@RequestBody @Valid createUserDto: CreateUserDto): UserDto = userService.createUser(createUserDto)
 
-    @PostMapping
+    @PutMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @ApiOperation(value = "Update user", response = UserDto::class)
     fun update(@RequestBody updateUserDto: UpdateUserDto, principal: Principal): UserDto = userService.updateUser(updateUserDto, principal.name)
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @PreAuthorize("hasAuthority('ADMIN')")
     @ApiOperation(value = "Delete one user by id", response = Boolean::class)
     fun delete(@PathVariable("id") userId: Long): Long = userService.deleteUser(userId)

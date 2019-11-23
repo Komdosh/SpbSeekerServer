@@ -6,6 +6,7 @@ import com.bst.spbseekerserver.service.security.InvalidLoginAttemptHandler
 import com.bst.spbseekerserver.service.security.JWTTokenProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -41,21 +42,20 @@ class SecurityConfig(
         return super.authenticationManagerBean()
     }
 
-    @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http
                 .cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(invalidLoginAttemptHandler)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/authenticate/**")
-                .permitAll()
+                .antMatchers("/api/v1/authenticate/**").permitAll()
                 .antMatchers(
                         "/swagger-ui.html", "/webjars/**", "/swagger-resources/",
                         "/swagger-resources/**", "/v2/api-docs", "/csrf"
-                )
-                .permitAll()
+                ).permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
                 .anyRequest().authenticated()
+
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter::class.java)
     }
 

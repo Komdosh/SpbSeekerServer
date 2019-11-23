@@ -22,7 +22,8 @@ data class User(
                 roles = this.roles)
 
         companion object {
-                fun fromDto(dto: CreateUserDto) = User(null, dto.email, dto.password, setOf(UserRole.USER))
+                fun fromDto(dto: CreateUserDto) = User(null, dto.email ?: "", dto.password
+                        ?: "", setOf(UserRole.USER))
                 fun fromDto(dto: UpdateUserDto, entity: User) = User(entity.id, dto.email
                         ?: entity.email, dto.password ?: entity.password, entity.roles)
         }

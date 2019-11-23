@@ -1,5 +1,6 @@
 package com.bst.spbseekerserver.controller.api
 
+import com.bst.spbseekerserver.controller.api.ImageController.Companion.CONTROLLER_URL
 import com.bst.spbseekerserver.model.dto.file.UploadResponseDto
 import com.bst.spbseekerserver.model.dto.file.UserImageDto
 import com.bst.spbseekerserver.service.api.ImageService
@@ -18,12 +19,15 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import java.security.Principal
 
 
-const val CONTROLLER_URL = "/api/v1/image/"
-
 @RestController
 @Api(value = "hint", description = "Rest API for operations with images", tags = ["Image API"])
 @RequestMapping(value = [CONTROLLER_URL], produces = [MediaType.APPLICATION_JSON_VALUE])
 class ImageController(val imageService: ImageService) {
+
+    companion object {
+        const val CONTROLLER_URL = "/api/v1/image/"
+    }
+
     @ApiOperation(value = "Upload image", response = UploadResponseDto::class)
     @PostMapping
     fun upload(
@@ -42,7 +46,8 @@ class ImageController(val imageService: ImageService) {
     }
 
     @PostMapping("/multiple")
-    @ApiOperation(value = "Upload array of images", responseContainer = "List", response = UploadResponseDto::class)
+    @ApiOperation(value = "Upload array of images", responseContainer = "List",
+            response = UploadResponseDto::class)
     fun uploadMultiple(
             @ApiParam(required = true, value = "Image ByteStream Array")
             @RequestParam("images") images: Array<MultipartFile>, principal: Principal
@@ -71,7 +76,8 @@ class ImageController(val imageService: ImageService) {
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(image.fileType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.fileName + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"" + image.fileName + "\"")
                 .body(ByteArrayResource(image.dbFile.data))
     }
 
@@ -84,7 +90,8 @@ class ImageController(val imageService: ImageService) {
     }
 
     @GetMapping("/user")
-    @ApiOperation(value = "Get list of user's images", responseContainer = "List", response = UserImageDto::class)
+    @ApiOperation(value = "Get list of user's images", responseContainer = "List",
+            response = UserImageDto::class)
     fun user(principal: Principal): List<UserImageDto> {
         return imageService.usersImagesId(principal.name).map {
             val fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -94,6 +101,4 @@ class ImageController(val imageService: ImageService) {
             UserImageDto(fileDownloadUri)
         }
     }
-
-
 }
