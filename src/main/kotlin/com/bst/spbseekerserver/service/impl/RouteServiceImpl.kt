@@ -45,7 +45,7 @@ class RouteServiceImpl(val routeRepository: RouteRepository, val userService: Us
         logger.debug { "Attempting to create $createDto" }
 
         val saved = routeRepository.save(Route.fromDto(createDto))
-        logger.debug { "Category $saved saved successfully" }
+        logger.debug { "Route $saved saved successfully" }
         return saved.toDto()
     }
 
@@ -56,7 +56,7 @@ class RouteServiceImpl(val routeRepository: RouteRepository, val userService: Us
         userService.checkBelong(entity.createdBy.id)
 
         val saved = routeRepository.save(Route.fromDto(updateDto, get(updatedId)))
-        logger.debug { "Category $saved saved successfully" }
+        logger.debug { "Route $saved saved successfully" }
         return saved.toDto()
     }
 

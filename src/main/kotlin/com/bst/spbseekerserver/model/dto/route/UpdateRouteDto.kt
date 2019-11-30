@@ -1,6 +1,7 @@
 package com.bst.spbseekerserver.model.dto.route
 
 import com.bst.spbseekerserver.model.dto.category.CategoryDto
+import com.bst.spbseekerserver.model.dto.route.subroute.UpdateSubRouteDto
 import io.swagger.annotations.ApiModelProperty
 
 data class UpdateRouteDto(
@@ -11,5 +12,7 @@ data class UpdateRouteDto(
         @ApiModelProperty(notes = "Description of route")
         val description: String?,
         @ApiModelProperty(notes = "Category of route")
-        val category: CategoryDto?
+        val category: CategoryDto?,
+        @ApiModelProperty(notes = "SubRoutes for route")
+        val subRoutes: List<UpdateSubRouteDto> = listOf()
 )

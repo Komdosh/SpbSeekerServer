@@ -18,16 +18,18 @@ class JpaAuditingConfiguration {
 
     @Bean
     fun auditorProvider(userService: UserService): AuditorAware<User> {
+        return AuditorAwareImpl()
+    }
 
-        val authentication: Authentication? = SecurityContextHolder.getContext().authentication
+    class AuditorAwareImpl : AuditorAware<User> {
+        override fun getCurrentAuditor(): Optional<User> {
+            val authentication: Authentication? = SecurityContextHolder.getContext().authentication
+            var user: User? = null
+            if (authentication != null && authentication.isAuthenticated) {
+                user = (authentication.principal as UserPrincipal).user
+            }
 
-        var user: User? = null
-        if (authentication != null && authentication.isAuthenticated) {
-            user = (authentication.principal as UserPrincipal).user
-        }
-
-        return AuditorAware {
-            Optional.ofNullable(user)
+            return Optional.ofNullable(user)
         }
     }
 }

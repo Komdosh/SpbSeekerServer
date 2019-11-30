@@ -15,9 +15,9 @@ import javax.persistence.MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
 open class Meta(
         @ManyToOne
-        @CreatedBy open var createdBy: User = User(null, "", "", emptySet()),
+        @CreatedBy open var createdBy: User = User(),
         @ManyToOne
-        @LastModifiedBy open var modifiedBy: User = User(null, "", "", emptySet()),
+        @LastModifiedBy open var modifiedBy: User = User(),
         @CreationTimestamp open val created: Date = Date(),
         @UpdateTimestamp open val modified: Date = Date()
 ) {

@@ -39,6 +39,16 @@ data class Location(
                 longitude = dto.longitude
         )
 
+        fun fromDto(dto: LocationDto) = Location(
+                id = dto.id,
+                name = dto.name,
+                imgUrlList = dto.imgUrlList,
+                description = dto.description,
+                shortDescription = dto.shortDescription,
+                latitude = dto.latitude,
+                longitude = dto.longitude
+        )
+
         fun fromDto(dto: UpdateLocationDto, entity: Location): Location {
             entity.name = dto.name ?: entity.name
             entity.imgUrlList = if (dto.imgUrlList.isEmpty()) entity.imgUrlList else dto.imgUrlList
@@ -48,5 +58,6 @@ data class Location(
             entity.longitude = dto.longitude ?: entity.longitude
             return entity
         }
+
     }
 }

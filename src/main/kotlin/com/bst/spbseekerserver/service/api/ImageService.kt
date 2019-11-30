@@ -1,6 +1,6 @@
 package com.bst.spbseekerserver.service.api
 
-import com.bst.spbseekerserver.model.entity.Image
+import com.bst.spbseekerserver.model.entity.common.Image
 import java.io.InputStream
 
 

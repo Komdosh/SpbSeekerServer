@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModelProperty
 import javax.validation.constraints.NotBlank
 
 data class CreateLocationDto(
+        @ApiModelProperty(notes = "Provided location id, it is required for create SubRoute with unsaved locations", required = true)
+        val id: Long?,
         @field:NotBlank(message = "Name of location should not be blank")
         @ApiModelProperty(notes = "Name of location", required = true)
         val name: String,

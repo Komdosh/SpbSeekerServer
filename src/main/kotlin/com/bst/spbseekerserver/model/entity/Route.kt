@@ -10,18 +10,18 @@ data class Route(
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
         val id: Long?,
         var name: String,
-        @ElementCollection
-        var imgUrlList: List<String>,
         var description: String,
-        @ManyToOne var category: Category
+        @ManyToOne(fetch = FetchType.EAGER) var category: Category,
+        @OneToMany(cascade = [CascadeType.ALL])
+        var subRoutes: List<SubRoute>
 ) : Meta() {
 
     fun toDto(): RouteDto = RouteDto(
             id = id!!,
             name = name,
-            imgUrlList = imgUrlList,
             description = description,
             category = category.toDto(),
+            subRoutes = subRoutes.map { it.toDto() },
             meta = metaDto()
     )
 
@@ -29,16 +29,17 @@ data class Route(
         fun fromDto(dto: CreateRouteDto) = Route(
                 id = null,
                 name = dto.name,
-                imgUrlList = dto.imgUrlList,
                 description = dto.description,
-                category = Category.fromDto(dto.category)
+                category = Category.fromDto(dto.category),
+                subRoutes = dto.subRoutes.map { SubRoute.fromDto(it) }
         )
 
         fun fromDto(dto: UpdateRouteDto, entity: Route): Route {
             entity.name = dto.name ?: entity.name
-            entity.imgUrlList = if (dto.imgUrlList.isEmpty()) entity.imgUrlList else dto.imgUrlList
             entity.description = dto.description ?: entity.description
             entity.category = Category.fromDto(dto.category ?: entity.category.toDto())
+            entity.subRoutes = dto.subRoutes.filter { subRoute -> entity.subRoutes.find { it.id == subRoute.id } != null }
+                    .map { subRoute -> SubRoute.fromDto(subRoute, entity = entity.subRoutes.find { it.id == subRoute.id }!!) }
 
             return entity
         }

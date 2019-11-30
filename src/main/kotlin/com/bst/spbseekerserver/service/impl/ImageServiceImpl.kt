@@ -1,8 +1,8 @@
 package com.bst.spbseekerserver.service.impl
 
 import com.bst.spbseekerserver.logger
-import com.bst.spbseekerserver.model.entity.DBFile
-import com.bst.spbseekerserver.model.entity.Image
+import com.bst.spbseekerserver.model.entity.common.DBFile
+import com.bst.spbseekerserver.model.entity.common.Image
 import com.bst.spbseekerserver.repository.ImageRepository
 import com.bst.spbseekerserver.service.api.ImageService
 import com.bst.spbseekerserver.service.api.UserService

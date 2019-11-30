@@ -4,7 +4,7 @@ import com.bst.spbseekerserver.model.dto.meta.MetaDto
 import io.swagger.annotations.ApiModelProperty
 
 data class CategoryDto(
-        @ApiModelProperty(notes = "Category Id")
+        @ApiModelProperty(example = "5", notes = "Category Id")
         val id: Long,
         @ApiModelProperty(notes = "Provided category name")
         val name: String,

@@ -14,17 +14,19 @@ data class User(
         @ElementCollection(fetch = FetchType.EAGER)
         val roles: Set<UserRole>
 ) {
+    constructor() : this(null, "", "", setOf())
+
     fun toDto(): UserDto = UserDto(
-            id = this.id!!,
+            id = this.id ?: 0,
             email = this.email,
             roles = this.roles)
 
     fun toCreatedByDto(): CreatedByUserDto = CreatedByUserDto(
-            id = this.id!!,
+            id = this.id ?: 0,
             email = this.email)
 
     fun toModifiedByDto(): ModifiedByUserDto = ModifiedByUserDto(
-            id = this.id!!,
+            id = this.id ?: 0,
             email = this.email)
 
     companion object {

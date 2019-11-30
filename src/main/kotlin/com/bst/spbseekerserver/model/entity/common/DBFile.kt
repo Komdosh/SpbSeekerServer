@@ -1,4 +1,4 @@
-package com.bst.spbseekerserver.model.entity
+package com.bst.spbseekerserver.model.entity.common
 
 import org.hibernate.annotations.GenericGenerator
 import javax.persistence.Entity
@@ -12,8 +12,7 @@ data class DBFile(
         @GeneratedValue(generator = "uuid")
         @GenericGenerator(name = "uuid", strategy = "uuid2")
         @Id val id: String?,
-        @Lob
-        val data: ByteArray
+        @Lob val data: ByteArray
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -32,6 +31,4 @@ data class DBFile(
         result = 31 * result + data.contentHashCode()
         return result
     }
-
-
 }

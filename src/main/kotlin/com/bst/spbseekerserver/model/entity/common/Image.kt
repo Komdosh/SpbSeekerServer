@@ -1,4 +1,4 @@
-package com.bst.spbseekerserver.model.entity
+package com.bst.spbseekerserver.model.entity.common
 
 import org.hibernate.annotations.GenericGenerator
 import javax.persistence.*
