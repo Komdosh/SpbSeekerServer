@@ -9,5 +9,11 @@ data class UserDto(
         @ApiModelProperty(notes = "Email address")
         val email: String,
         @ApiModelProperty(notes = "User roles set")
-        val roles: Set<UserRole>
+        val roles: Set<UserRole>,
+        @ApiModelProperty(notes = "First name of user")
+        val firstName: String,
+        @ApiModelProperty(notes = "Last name of user")
+        val lastName: String,
+        @ApiModelProperty(notes = "User's profile photo")
+        val photoUrl: String
 )

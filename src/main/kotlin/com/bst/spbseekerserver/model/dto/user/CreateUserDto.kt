@@ -11,5 +11,11 @@ data class CreateUserDto(
         val email: String?,
         @field:NotBlank(message = "Password is mandatory")
         @ApiModelProperty(notes = "New user password")
-        val password: String?
+        val password: String?,
+        @ApiModelProperty(notes = "First name of user")
+        val firstName: String?,
+        @ApiModelProperty(notes = "Last name of user")
+        val lastName: String?,
+        @ApiModelProperty(notes = "User's profile photo")
+        val photoUrl: String?
 )

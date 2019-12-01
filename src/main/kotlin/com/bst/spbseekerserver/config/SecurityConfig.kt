@@ -25,7 +25,6 @@ class SecurityConfig(
         private val jwtTokenProvider: JWTTokenProvider
 ) : WebSecurityConfigurerAdapter() {
 
-    @Throws(Exception::class)
     public override fun configure(authenticationManagerBuilder: AuthenticationManagerBuilder) {
         authenticationManagerBuilder.userDetailsService(userAuthDetailsService)
                 .passwordEncoder(passwordEncoder())

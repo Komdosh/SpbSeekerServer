@@ -19,9 +19,9 @@ data class RouteDto(
         @ApiModelProperty(notes = "SubRoutes for route")
         val subRoutes: List<SubRouteDto>,
         @ApiModelProperty(notes = "Publishing status", allowableValues = "DRAFT, PUBLISHED")
-        var publishState: PublishState,
+        val publishState: PublishState,
         @ApiModelProperty(notes = "Submission status", allowableValues = "EDITING, SUBMITTED, APPROVED, REJECTED")
-        var submissionState: SubmissionState,
+        val submissionState: SubmissionState,
         @ApiModelProperty(notes = "Meta information of route")
         val meta: MetaDto
 )

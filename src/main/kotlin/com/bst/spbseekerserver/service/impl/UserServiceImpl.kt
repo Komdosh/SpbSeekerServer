@@ -11,24 +11,24 @@ import javassist.NotFoundException
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.security.Principal
 
 
 @Service
-class UserServiceImpl(val userRepository: UserRepository) : UserService {
+class UserServiceImpl(val userRepository: UserRepository, val passwordEncoder: PasswordEncoder) : UserService {
     override fun update(updateDto: UpdateUserDto, email: String): UserDto {
         logger.debug { "Attempting to update $updateDto" }
         val user = getUserByEmail(email)
-        val savedUser = userRepository.save(User.fromDto(updateDto, user))
+        val savedUser = userRepository.save(User.fromDto(updateDto, passwordEncoder, user))
         logger.debug { "User $savedUser saved successfully" }
         return savedUser.toDto()
     }
 
     override fun create(createDto: CreateUserDto): UserDto {
         logger.debug { "Attempting to create $createDto" }
-
-        val savedUser = userRepository.save(User.fromDto(createDto))
+        val savedUser = userRepository.save(User.fromDto(createDto, passwordEncoder))
         logger.debug { "User $savedUser saved successfully" }
         return savedUser.toDto()
     }
