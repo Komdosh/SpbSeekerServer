@@ -1,9 +1,9 @@
 package com.bst.spbseekerserver.service.security
 
+import com.bst.spbseekerserver.config.AppProperties
 import com.bst.spbseekerserver.logger
 import com.bst.spbseekerserver.model.security.UserPrincipal
 import io.jsonwebtoken.*
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.security.SignatureException
 import java.util.*
@@ -11,10 +11,7 @@ import java.util.*
 
 @Component
 class JWTTokenProvider(
-        @Value("\${app.auth.tokenSecret:sec}")
-        val jwtSecret: String,
-        @Value("\${app.auth.tokenExpirationMsec:864000000}")
-        val jwtExpirationInMs: Int
+        val appProperties: AppProperties
 ) {
     fun generateToken(userPrincipal: UserPrincipal): String {
 
@@ -25,15 +22,15 @@ class JWTTokenProvider(
                 .setIssuer("SpbSeeker Server")
                 .setSubject(userPrincipal.username)
                 .setIssuedAt(Date())
-                .setExpiration(Date(Date().time + jwtExpirationInMs))
+                .setExpiration(Date(Date().time + appProperties.auth.tokenExpirationMsec))
                 .claim("Roles", roles)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(SignatureAlgorithm.HS512, appProperties.auth.tokenSecret)
                 .compact()
     }
 
     fun validateToken(jwt: String): Boolean {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(jwt)
+            Jwts.parser().setSigningKey(appProperties.auth.tokenSecret).parseClaimsJws(jwt)
             return true
         } catch (ex: SignatureException) {
             logger.error("Invalid JWT signature")
@@ -50,6 +47,6 @@ class JWTTokenProvider(
     }
 
     fun getUserNameFromToken(token: String): String {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).body.subject
+        return Jwts.parser().setSigningKey(appProperties.auth.tokenSecret).parseClaimsJws(token).body.subject
     }
 }

@@ -1,11 +1,14 @@
 package com.bst.spbseekerserver
 
+import com.bst.spbseekerserver.config.AppProperties
 import com.bst.spbseekerserver.model.entity.User
 import com.bst.spbseekerserver.model.enums.UserRole
+import com.bst.spbseekerserver.model.security.AuthProvider
 import com.bst.spbseekerserver.repository.UserRepository
 import mu.KotlinLogging
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -13,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 val logger = KotlinLogging.logger {}
 
 @SpringBootApplication
+@EnableConfigurationProperties(AppProperties::class)
 class SpbSeekerApplication {
     @Bean
     fun init(userRepository: UserRepository, passwordEncoder: PasswordEncoder) = ApplicationRunner {
@@ -26,6 +30,7 @@ fun main(args: Array<String>) {
 
 fun dataSetup(userRepository: UserRepository, passwordEncoder: PasswordEncoder) {
     if (!userRepository.existsUserByEmail("admin")) {
-        userRepository.save(User(null, "admin", passwordEncoder.encode("123"), "Admin", "", "", setOf(UserRole.ADMIN)))
+        userRepository.save(User(null, "admin",
+                passwordEncoder.encode("123"), "Admin", "", setOf(UserRole.ADMIN), AuthProvider.LOCAL))
     }
 }

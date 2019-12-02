@@ -2,31 +2,37 @@ package com.bst.spbseekerserver.model.entity
 
 import com.bst.spbseekerserver.model.dto.user.*
 import com.bst.spbseekerserver.model.enums.UserRole
+import com.bst.spbseekerserver.model.security.AuthProvider
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import javax.persistence.*
 
-@Entity(name = "users")
+@Entity
+@Table(name = "users", uniqueConstraints = [
+    UniqueConstraint(columnNames = ["email"])
+])
 data class User(
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
-        val id: Long?,
-        val email: String,
-        val password: String,
-        val firstName: String,
-        val lastName: String,
-        val photoUrl: String,
+        val id: Long? = null,
+
+        val email: String = "",
+        val password: String = "",
+        val name: String = "",
+        val photoUrl: String = "",
         @Enumerated(EnumType.STRING)
         @ElementCollection(fetch = FetchType.EAGER)
-        val roles: Set<UserRole>
+        val roles: Set<UserRole> = setOf(UserRole.USER),
+        @Enumerated(EnumType.STRING)
+        val provider: AuthProvider = AuthProvider.LOCAL,
+        val providerId: String = ""
 ) {
-    constructor() : this(null, "", "", "", "", "", setOf())
-
     fun toDto(): UserDto = UserDto(
             id = this.id ?: 0,
             email = this.email,
-            firstName = this.firstName,
-            lastName = this.lastName,
+            name = this.name,
             photoUrl = this.photoUrl,
-            roles = this.roles)
+            roles = this.roles,
+            provider = this.provider)
 
     fun toCreatedByDto(): CreatedByUserDto = CreatedByUserDto(
             id = this.id ?: 0,
@@ -37,22 +43,22 @@ data class User(
             email = this.email)
 
     companion object {
-        fun fromDto(dto: CreateUserDto, passwordEncoder: PasswordEncoder) = User(
+        fun fromDto(dto: CreateUserDto, passwordEncoder: PasswordEncoder = BCryptPasswordEncoder(), authProvider: AuthProvider = AuthProvider.LOCAL) = User(
                 id = null,
                 email = dto.email ?: "",
                 password = passwordEncoder.encode(dto.password ?: ""),
-                firstName = dto.firstName ?: "",
-                lastName = dto.lastName ?: "",
+                name = dto.name ?: "",
                 photoUrl = dto.photoUrl ?: "",
-                roles = setOf(UserRole.USER))
+                roles = setOf(UserRole.USER),
+                provider = authProvider)
 
-        fun fromDto(dto: UpdateUserDto, passwordEncoder: PasswordEncoder, entity: User) = User(
+        fun fromDto(dto: UpdateUserDto, entity: User, passwordEncoder: PasswordEncoder = BCryptPasswordEncoder()) = User(
                 id = entity.id,
                 email = dto.email ?: entity.email,
                 password = passwordEncoder.encode(dto.password ?: entity.password),
-                firstName = dto.firstName ?: entity.firstName,
-                lastName = dto.lastName ?: entity.lastName,
+                name = dto.name ?: entity.name,
                 photoUrl = dto.photoUrl ?: entity.photoUrl,
-                roles = entity.roles)
+                roles = entity.roles,
+                provider = entity.provider)
     }
 }

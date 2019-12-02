@@ -1,6 +1,7 @@
 package com.bst.spbseekerserver.model.dto.user
 
 import com.bst.spbseekerserver.model.enums.UserRole
+import com.bst.spbseekerserver.model.security.AuthProvider
 import io.swagger.annotations.ApiModelProperty
 
 data class UserDto(
@@ -10,10 +11,10 @@ data class UserDto(
         val email: String,
         @ApiModelProperty(notes = "User roles set")
         val roles: Set<UserRole>,
-        @ApiModelProperty(notes = "First name of user")
-        val firstName: String,
-        @ApiModelProperty(notes = "Last name of user")
-        val lastName: String,
-        @ApiModelProperty(notes = "User's profile photo")
-        val photoUrl: String
+        @ApiModelProperty(notes = "Name of user")
+        val name: String,
+        @ApiModelProperty(notes = "User's profile photo url")
+        val photoUrl: String,
+        @ApiModelProperty(notes = "Who is authentication provider", allowableValues = "LOCAL,GOOGLE,FACEBOOK")
+        val provider: AuthProvider
 )

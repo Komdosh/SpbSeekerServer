@@ -21,7 +21,7 @@ class UserServiceImpl(val userRepository: UserRepository, val passwordEncoder: P
     override fun update(updateDto: UpdateUserDto, email: String): UserDto {
         logger.debug { "Attempting to update $updateDto" }
         val user = getUserByEmail(email)
-        val savedUser = userRepository.save(User.fromDto(updateDto, passwordEncoder, user))
+        val savedUser = userRepository.save(User.fromDto(updateDto, user, passwordEncoder))
         logger.debug { "User $savedUser saved successfully" }
         return savedUser.toDto()
     }
