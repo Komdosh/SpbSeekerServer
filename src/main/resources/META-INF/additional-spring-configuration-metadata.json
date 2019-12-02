@@ -1,19 +1,74 @@
 {
   "properties": [
     {
-      "name": "jwt",
+      "name": "security.oauth2.client.registration.google.clientId",
       "type": "java.lang.String",
-      "description": "JSON web token."
+      "description": "Description for security.oauth2.client.registration.google.clientId."
     },
     {
-      "name": "jwt.expirationInMs",
+      "name": "security.oauth2.client.registration.google.clientSecret",
       "type": "java.lang.String",
-      "description": "Expiration time in ms."
+      "description": "Description for security.oauth2.client.registration.google.clientSecret."
     },
     {
-      "name": "jwt.secret",
+      "name": "security.oauth2.client.registration.google.redirectUriTemplate",
       "type": "java.lang.String",
-      "description": "Secret key."
+      "description": "Description for security.oauth2.client.registration.google.redirectUriTemplate."
+    },
+    {
+      "name": "security.oauth2.client.registration.google.scope",
+      "type": "java.lang.String",
+      "description": "Description for security.oauth2.client.registration.google.scope."
+    },
+    {
+      "name": "security.oauth2.client.registration.facebook.clientId",
+      "type": "java.lang.String",
+      "description": "Description for security.oauth2.client.registration.facebook.clientId."
+    },
+    {
+      "name": "security.oauth2.client.registration.facebook.clientSecret",
+      "type": "java.lang.String",
+      "description": "Description for security.oauth2.client.registration.facebook.clientSecret."
+    },
+    {
+      "name": "security.oauth2.client.registration.facebook.redirectUriTemplate",
+      "type": "java.lang.String",
+      "description": "Description for security.oauth2.client.registration.facebook.redirectUriTemplate."
+    },
+    {
+      "name": "security.oauth2.client.registration.facebook.scope",
+      "type": "java.lang.String",
+      "description": "Description for security.oauth2.client.registration.facebook.scope."
+    },
+    {
+      "name": "security.oauth2.client.provider.facebook.authorizationUri",
+      "type": "java.lang.String",
+      "description": "Description for security.oauth2.client.provider.facebook.authorizationUri."
+    },
+    {
+      "name": "security.oauth2.client.provider.facebook.tokenUri",
+      "type": "java.lang.String",
+      "description": "Description for security.oauth2.client.provider.facebook.tokenUri."
+    },
+    {
+      "name": "security.oauth2.client.provider.facebook.userInfoUri",
+      "type": "java.lang.String",
+      "description": "Description for security.oauth2.client.provider.facebook.userInfoUri."
+    },
+    {
+      "name": "app.auth.tokenSecret",
+      "type": "java.lang.String",
+      "description": "Description for app.auth.tokenSecret."
+    },
+    {
+      "name": "app.auth.tokenExpirationMsec",
+      "type": "java.lang.String",
+      "description": "Description for app.auth.tokenExpirationMsec."
+    },
+    {
+      "name": "app.oauth2.authorizedRedirectUris",
+      "type": "java.lang.String",
+      "description": "Description for app.oauth2.authorizedRedirectUris."
     }
   ]
 }

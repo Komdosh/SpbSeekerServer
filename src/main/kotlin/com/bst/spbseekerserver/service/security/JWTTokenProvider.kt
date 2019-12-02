@@ -11,9 +11,9 @@ import java.util.*
 
 @Component
 class JWTTokenProvider(
-        @Value("\${jwt.secret:sec}")
+        @Value("\${app.auth.tokenSecret:sec}")
         val jwtSecret: String,
-        @Value("\${jwt.expirationInMs:5000}")
+        @Value("\${app.auth.tokenExpirationMsec:864000000}")
         val jwtExpirationInMs: Int
 ) {
     fun generateToken(userPrincipal: UserPrincipal): String {
@@ -25,7 +25,7 @@ class JWTTokenProvider(
                 .setIssuer("SpbSeeker Server")
                 .setSubject(userPrincipal.username)
                 .setIssuedAt(Date())
-                .setExpiration(Date(Date().time + jwtExpirationInMs * 10000))
+                .setExpiration(Date(Date().time + jwtExpirationInMs))
                 .claim("Roles", roles)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact()
