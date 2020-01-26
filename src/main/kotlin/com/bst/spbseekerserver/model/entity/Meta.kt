@@ -1,5 +1,6 @@
 package com.bst.spbseekerserver.model.entity
 
+import com.bst.spbseekerserver.auth.model.entity.User
 import com.bst.spbseekerserver.model.dto.meta.MetaDto
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp

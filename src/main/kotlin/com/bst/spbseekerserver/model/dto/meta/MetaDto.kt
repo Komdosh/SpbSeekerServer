@@ -1,7 +1,7 @@
 package com.bst.spbseekerserver.model.dto.meta
 
-import com.bst.spbseekerserver.model.dto.user.CreatedByUserDto
-import com.bst.spbseekerserver.model.dto.user.ModifiedByUserDto
+import com.bst.spbseekerserver.auth.model.dto.CreatedByUserDto
+import com.bst.spbseekerserver.auth.model.dto.ModifiedByUserDto
 import io.swagger.annotations.ApiModelProperty
 import java.util.*
 
