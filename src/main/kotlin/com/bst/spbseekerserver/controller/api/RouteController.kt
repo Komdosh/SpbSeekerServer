@@ -4,33 +4,33 @@ import com.bst.spbseekerserver.model.dto.route.CreateRouteDto
 import com.bst.spbseekerserver.model.dto.route.RouteDto
 import com.bst.spbseekerserver.model.dto.route.UpdateRouteDto
 import com.bst.spbseekerserver.service.api.RouteService
-import io.swagger.annotations.Api
-import io.swagger.annotations.ApiOperation
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@Api(value = "route", description = "Rest API for route operations", tags = ["Route API"])
+@Tag(name = "Route API", description = "Rest API for route operations")
 @RequestMapping(value = ["/api/v1/route"], produces = [MediaType.APPLICATION_JSON_VALUE])
-class RouteController(val routeService: RouteService) {
-    @ApiOperation(value = "Fetching one route by id", response = RouteDto::class)
+class RouteController(private val routeService: RouteService) {
+    @Operation(description = "Fetching one route by id")
     @GetMapping("/{id}")
     fun get(@PathVariable("id") routeId: Long): RouteDto = routeService.getDto(routeId)
 
-    @ApiOperation(value = "Fetching all routes", responseContainer = "List", response = RouteDto::class)
+    @Operation(description = "Fetching all routes")
     @GetMapping
     fun getAll(): List<RouteDto> = routeService.getAll()
 
     @PostMapping
-    @ApiOperation(value = "Create route", response = RouteDto::class)
+    @Operation(description = "Create route")
     fun create(@RequestBody createRouteDto: CreateRouteDto): RouteDto = routeService.create(createRouteDto)
 
     @PutMapping("/{id}")
-    @ApiOperation(value = "Update route", response = RouteDto::class)
+    @Operation(description = "Update route")
     fun update(@PathVariable("id") routeId: Long, @RequestBody updateRouteDto: UpdateRouteDto):
             RouteDto = routeService.update(updateRouteDto, routeId)
 
-    @ApiOperation(value = "Delete one route by id", response = Long::class)
+    @Operation(description = "Delete one route by id")
     @DeleteMapping("/{id}")
     fun delete(@PathVariable("id") routeId: Long): Long = routeService.delete(routeId)
 }

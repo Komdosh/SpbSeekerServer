@@ -6,42 +6,42 @@ import com.bst.spbseekerserver.model.dto.location.UpdateLocationDto
 import com.bst.spbseekerserver.model.dto.route.RouteDto
 import com.bst.spbseekerserver.service.api.AutoRoutingService
 import com.bst.spbseekerserver.service.api.LocationService
-import io.swagger.annotations.Api
-import io.swagger.annotations.ApiOperation
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@Api(value = "location", description = "Rest API for location operations", tags = ["Location API"])
+@Tag(name = "Location API", description = "Rest API for location operations")
 @RequestMapping(value = ["/api/v1/location"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class LocationController(val locationService: LocationService, val autoRoutingService: AutoRoutingService) {
-    @ApiOperation(value = "Fetching one location by id", response = LocationDto::class)
+    @Operation(description = "Fetching one location by id")
     @GetMapping("/{id}")
     fun get(@PathVariable("id") pointId: Long): LocationDto = locationService.getDto(pointId)
 
-    @ApiOperation(value = "Fetching all locations", responseContainer = "List", response = LocationDto::class)
+    @Operation(description = "Fetching all locations")
     @GetMapping
     fun getAll(): List<LocationDto> = locationService.getAll()
 
     @PostMapping
-    @ApiOperation(value = "Create location", response = LocationDto::class)
+    @Operation(description = "Create location")
     fun create(@RequestBody createLocationDto: CreateLocationDto): LocationDto = locationService.create(createLocationDto)
 
     @PutMapping("/{id}")
-    @ApiOperation(value = "Update location", response = LocationDto::class)
+    @Operation(description = "Update location")
     fun update(@PathVariable("id") locationId: Long, @RequestBody updateLocationDto: UpdateLocationDto):
             LocationDto = locationService.update(updateLocationDto, locationId)
 
-    @ApiOperation(value = "Delete one location by id", response = Long::class)
+    @Operation(description = "Delete one location by id")
     @DeleteMapping("/{id}")
     fun delete(@PathVariable("id") locationId: Long): Long = locationService.delete(locationId)
 
-    @ApiOperation(value = "Fetch nearest location by coordinates", response = LocationDto::class)
+    @Operation(description = "Fetch nearest location by coordinates")
     @GetMapping("/nearest")
     fun getNearestPoint(@RequestParam("latitude") latitude: Double,
                         @RequestParam("longitude") longitude: Double): LocationDto = locationService.getNearestPoint(latitude, longitude)
 
-    @ApiOperation(value = "Generate route automatically (not implemented)", response = RouteDto::class)
+    @Operation(description = "Generate route automatically (not implemented)")
     @GetMapping("/auto")
     fun getAuto(@RequestParam("latitude") latitude: Double,
                 @RequestParam("longitude") longitude: Double): RouteDto? = autoRoutingService.generateRoute(latitude, longitude)

@@ -3,10 +3,10 @@ package com.bst.spbseekerserver.auth.config.oauth2
 
 import com.bst.spbseekerserver.auth.model.dto.UpdateUserDto
 import com.bst.spbseekerserver.auth.model.entity.User
-import com.bst.spbseekerserver.auth.model.security.AuthProvider
 import com.bst.spbseekerserver.auth.model.security.UserPrincipal
 import com.bst.spbseekerserver.auth.model.security.oauth2.user.OAuth2UserInfo
 import com.bst.spbseekerserver.auth.model.security.oauth2.user.OAuth2UserInfoFactory
+import com.bst.spbseekerserver.auth.model.types.AuthProvider
 import com.bst.spbseekerserver.auth.model.types.UserRole
 import com.bst.spbseekerserver.auth.repository.UserRepository
 import org.springframework.security.authentication.InternalAuthenticationServiceException

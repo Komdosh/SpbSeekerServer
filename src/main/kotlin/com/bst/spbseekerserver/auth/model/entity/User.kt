@@ -1,8 +1,7 @@
 package com.bst.spbseekerserver.auth.model.entity
 
 import com.bst.spbseekerserver.auth.model.dto.*
-import com.bst.spbseekerserver.auth.model.dto.user.*
-import com.bst.spbseekerserver.auth.model.security.AuthProvider
+import com.bst.spbseekerserver.auth.model.types.AuthProvider
 import com.bst.spbseekerserver.auth.model.types.UserRole
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder

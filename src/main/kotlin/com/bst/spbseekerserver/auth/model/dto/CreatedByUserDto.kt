@@ -1,10 +1,10 @@
 package com.bst.spbseekerserver.auth.model.dto
 
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 
 data class CreatedByUserDto(
-        @ApiModelProperty(notes = "Id of user that created this resource")
+        @Schema(name = "Id of user that created this resource")
         val id: Long,
-        @ApiModelProperty(notes = "Email of user that created this resource")
+        @Schema(name = "Email of user that created this resource")
         val email: String
 )

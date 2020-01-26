@@ -4,9 +4,9 @@ import com.bst.spbseekerserver.controller.api.ImageController.Companion.CONTROLL
 import com.bst.spbseekerserver.model.dto.file.UploadResponseDto
 import com.bst.spbseekerserver.model.dto.file.UserImageDto
 import com.bst.spbseekerserver.service.api.ImageService
-import io.swagger.annotations.Api
-import io.swagger.annotations.ApiOperation
-import io.swagger.annotations.ApiParam
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.core.io.ByteArrayResource
 import org.springframework.core.io.Resource
 import org.springframework.http.HttpHeaders
@@ -20,7 +20,7 @@ import java.security.Principal
 
 
 @RestController
-@Api(value = "hint", description = "Rest API for operations with images", tags = ["Image API"])
+@Tag(name = "Images API", description = "Rest API for operations with images")
 @RequestMapping(value = [CONTROLLER_URL], produces = [MediaType.APPLICATION_JSON_VALUE])
 class ImageController(val imageService: ImageService) {
 
@@ -28,10 +28,10 @@ class ImageController(val imageService: ImageService) {
         const val CONTROLLER_URL = "/api/v1/image/"
     }
 
-    @ApiOperation(value = "Upload image", response = UploadResponseDto::class)
+    @Operation(description = "Upload image")
     @PostMapping
     fun upload(
-            @ApiParam(required = true, value = "Image ByteStream")
+            @Parameter(required = true, name = "Image ByteStream")
             @RequestParam("image") image: MultipartFile, principal: Principal
     ): UploadResponseDto {
         val url = imageService.upload(image.inputStream,
@@ -46,10 +46,9 @@ class ImageController(val imageService: ImageService) {
     }
 
     @PostMapping("/multiple")
-    @ApiOperation(value = "Upload array of images", responseContainer = "List",
-            response = UploadResponseDto::class)
+    @Operation(description = "Upload array of images")
     fun uploadMultiple(
-            @ApiParam(required = true, value = "Image ByteStream Array")
+            @Parameter(required = true, name = "Image ByteStream Array")
             @RequestParam("images") images: Array<MultipartFile>, principal: Principal
     ): List<UploadResponseDto> {
         require(images.none {
@@ -68,7 +67,7 @@ class ImageController(val imageService: ImageService) {
     }
 
     @GetMapping("/{imageId}")
-    @ApiOperation(value = "Download image", response = Resource::class)
+    @Operation(description = "Download image")
     fun download(
             @PathVariable imageId: String
     ): ResponseEntity<Resource> {
@@ -82,7 +81,7 @@ class ImageController(val imageService: ImageService) {
     }
 
     @DeleteMapping("/{imageId}")
-    @ApiOperation(value = "Delete image by id", response = String::class)
+    @Operation(description = "Delete image by id")
     fun delete(
             @PathVariable imageId: String, principal: Principal
     ): String {
@@ -90,8 +89,7 @@ class ImageController(val imageService: ImageService) {
     }
 
     @GetMapping("/user")
-    @ApiOperation(value = "Get list of user's images", responseContainer = "List",
-            response = UserImageDto::class)
+    @Operation(description = "Get list of user's images")
     fun user(principal: Principal): List<UserImageDto> {
         return imageService.usersImagesId(principal.name).map {
             val fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()

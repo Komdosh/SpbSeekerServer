@@ -91,6 +91,7 @@ class SecurityConfig(
                         "/**/*.js").permitAll()
                 .antMatchers("/auth/**", "/oauth2/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
+                .antMatchers("/swagger-ui/*", "/api-docs/*", "/api-docs").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login()

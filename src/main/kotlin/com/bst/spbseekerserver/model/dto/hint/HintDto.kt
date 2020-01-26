@@ -2,21 +2,21 @@ package com.bst.spbseekerserver.model.dto.hint
 
 import com.bst.spbseekerserver.model.dto.meta.MetaDto
 import com.bst.spbseekerserver.model.enums.HintAction
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 
 data class HintDto(
-        @ApiModelProperty(notes = "Hint id")
+        @Schema(name = "Hint id")
         val id: Long,
-        @ApiModelProperty(notes = "Name of point")
+        @Schema(name = "Name of point")
         var name: String,
-        @ApiModelProperty(notes = "Image of hint")
+        @Schema(name = "Image of hint")
         var imgUrl: String,
-        @ApiModelProperty(notes = "Full Description of this hint")
+        @Schema(name = "Full Description of this hint")
         var description: String,
-        @ApiModelProperty(notes = "Short Description of this hint")
+        @Schema(name = "Short Description of this hint")
         var shortDescription: String,
-        @ApiModelProperty(notes = "Hint action type")
+        @Schema(name = "Hint action type")
         var hintAction: HintAction,
-        @ApiModelProperty(notes = "Meta information of hint")
+        @Schema(name = "Meta information of hint")
         val meta: MetaDto
 )

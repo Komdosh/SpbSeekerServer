@@ -1,15 +1,15 @@
 package com.bst.spbseekerserver.model.dto.category
 
 import com.bst.spbseekerserver.model.dto.meta.MetaDto
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 
 data class CategoryDto(
-        @ApiModelProperty(example = "5", notes = "Category Id")
+        @Schema(example = "5", name = "Category Id")
         val id: Long,
-        @ApiModelProperty(notes = "Provided category name")
+        @Schema(name = "Provided category name")
         val name: String,
-        @ApiModelProperty(notes = "Image url of category")
+        @Schema(name = "Image url of category")
         val imgUrl: String,
-        @ApiModelProperty(notes = "Meta information of category")
+        @Schema(name = "Meta information of category")
         val meta: MetaDto
 )

@@ -1,7 +1,7 @@
 package com.bst.spbseekerserver
 
 import com.bst.spbseekerserver.auth.model.entity.User
-import com.bst.spbseekerserver.auth.model.security.AuthProvider
+import com.bst.spbseekerserver.auth.model.types.AuthProvider
 import com.bst.spbseekerserver.auth.model.types.UserRole
 import com.bst.spbseekerserver.auth.repository.UserRepository
 import com.bst.spbseekerserver.config.AppProperties

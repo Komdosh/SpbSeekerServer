@@ -4,32 +4,32 @@ import com.bst.spbseekerserver.model.dto.hint.CreateHintDto
 import com.bst.spbseekerserver.model.dto.hint.HintDto
 import com.bst.spbseekerserver.model.dto.hint.UpdateHintDto
 import com.bst.spbseekerserver.service.api.HintService
-import io.swagger.annotations.Api
-import io.swagger.annotations.ApiOperation
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@Api(value = "hint", description = "Rest API for hint operations", tags = ["Hint API"])
+@Tag(name = "Hint API", description = "Rest API for hint operations")
 @RequestMapping(value = ["/api/v1/hint"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class HintController(val hintService: HintService) {
-    @ApiOperation(value = "Fetching one hint by id", response = HintDto::class)
+    @Operation(description = "Fetching one hint by id")
     @GetMapping("/{id}")
     fun get(@PathVariable("id") hintId: Long): HintDto = hintService.getDto(hintId)
 
-    @ApiOperation(value = "Fetching all hints", responseContainer = "List", response = HintDto::class)
+    @Operation(description = "Fetching all hints")
     @GetMapping
     fun getAll(): List<HintDto> = hintService.getAll()
 
     @PostMapping
-    @ApiOperation(value = "Create hint", response = HintDto::class)
+    @Operation(description = "Create hint")
     fun create(@RequestBody createHintDto: CreateHintDto): HintDto = hintService.create(createHintDto)
 
     @PutMapping("/{id}")
-    @ApiOperation(value = "Update hint", response = HintDto::class)
+    @Operation(description = "Update hint")
     fun update(@PathVariable("id") hintId: Long, @RequestBody updateHintDto: UpdateHintDto): HintDto = hintService.update(updateHintDto, hintId)
 
-    @ApiOperation(value = "Delete one hint by id", response = Long::class)
+    @Operation(description = "Delete one hint by id")
     @DeleteMapping("/{id}")
     fun delete(@PathVariable("id") hintId: Long): Long = hintService.delete(hintId)
 }

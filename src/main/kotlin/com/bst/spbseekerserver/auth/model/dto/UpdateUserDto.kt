@@ -1,18 +1,18 @@
 package com.bst.spbseekerserver.auth.model.dto
 
 import com.bst.spbseekerserver.auth.model.security.oauth2.user.OAuth2UserInfo
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 import javax.validation.constraints.Email
 
 data class UpdateUserDto(
         @field:Email(message = "Invalid mailbox")
-        @ApiModelProperty(notes = "Updated email, if null it will not update this field")
+        @Schema(name = "Updated email, if null it will not update this field")
         val email: String?,
-        @ApiModelProperty(notes = "Updated password, if null it will not update this field")
+        @Schema(name = "Updated password, if null it will not update this field")
         val password: String?,
-        @ApiModelProperty(notes = "Name of user")
+        @Schema(name = "Name of user")
         val name: String?,
-        @ApiModelProperty(notes = "User's profile photo")
+        @Schema(name = "User's profile photo")
         val photoUrl: String?
 ) {
         constructor(oauth2User: OAuth2UserInfo) : this(null, null, oauth2User.name, oauth2User.imageUrl)

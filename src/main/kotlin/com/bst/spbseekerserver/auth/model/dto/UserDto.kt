@@ -1,20 +1,20 @@
 package com.bst.spbseekerserver.auth.model.dto
 
-import com.bst.spbseekerserver.auth.model.security.AuthProvider
+import com.bst.spbseekerserver.auth.model.types.AuthProvider
 import com.bst.spbseekerserver.auth.model.types.UserRole
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 
 data class UserDto(
-        @ApiModelProperty(notes = "User Id")
+        @Schema(name = "User Id")
         val id: Long,
-        @ApiModelProperty(notes = "Email address")
+        @Schema(name = "Email address")
         val email: String,
-        @ApiModelProperty(notes = "User roles set")
+        @Schema(name = "User roles set")
         val roles: Set<UserRole>,
-        @ApiModelProperty(notes = "Name of user")
+        @Schema(name = "Name of user")
         val name: String,
-        @ApiModelProperty(notes = "User's profile photo url")
+        @Schema(name = "User's profile photo url")
         val photoUrl: String,
-        @ApiModelProperty(notes = "Who is authentication provider", allowableValues = "LOCAL,GOOGLE,FACEBOOK")
+        @Schema(name = "Who is authentication provider",  /*allowableValues = ["LOCAL","GOOGLE","FACEBOOK"],*/ oneOf = [AuthProvider::class])
         val provider: AuthProvider
 )

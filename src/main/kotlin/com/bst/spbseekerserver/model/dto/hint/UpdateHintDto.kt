@@ -1,14 +1,14 @@
 package com.bst.spbseekerserver.model.dto.hint
 
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 
 data class UpdateHintDto(
-        @ApiModelProperty(notes = "Provided hint name")
+        @Schema(name = "Provided hint name")
         val name: String?,
-        @ApiModelProperty(notes = "Image url of hint")
+        @Schema(name = "Image url of hint")
         val imgUrl: String?,
-        @ApiModelProperty(notes = "Full Description of this hint")
+        @Schema(name = "Full Description of this hint")
         val description: String?,
-        @ApiModelProperty(notes = "Short Description of this hint")
+        @Schema(name = "Short Description of this hint")
         val shortDescription: String?
 )
