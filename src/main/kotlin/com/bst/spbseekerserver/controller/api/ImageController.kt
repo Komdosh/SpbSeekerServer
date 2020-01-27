@@ -1,11 +1,17 @@
 package com.bst.spbseekerserver.controller.api
 
+import com.bst.spbseekerserver.config.OpenAPIConfiguration
 import com.bst.spbseekerserver.controller.api.ImageController.Companion.CONTROLLER_URL
 import com.bst.spbseekerserver.model.dto.file.UploadResponseDto
 import com.bst.spbseekerserver.model.dto.file.UserImageDto
 import com.bst.spbseekerserver.service.api.ImageService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.media.ArraySchema
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.core.io.ByteArrayResource
 import org.springframework.core.io.Resource
@@ -20,7 +26,7 @@ import java.security.Principal
 
 
 @RestController
-@Tag(name = "Images API", description = "Rest API for operations with images")
+@Tag(name = "Images API", description = "REST API for operations with images")
 @RequestMapping(value = [CONTROLLER_URL], produces = [MediaType.APPLICATION_JSON_VALUE])
 class ImageController(val imageService: ImageService) {
 
@@ -28,8 +34,18 @@ class ImageController(val imageService: ImageService) {
         const val CONTROLLER_URL = "/api/v1/image/"
     }
 
-    @Operation(description = "Upload image")
     @PostMapping
+    @Operation(description = "Upload image",
+            security = [SecurityRequirement(name = OpenAPIConfiguration.SECURITY_SCHEME)],
+            responses = [ApiResponse(
+                    responseCode = "200",
+                    content = [
+                        Content(
+                                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                schema = Schema(implementation = UploadResponseDto::class)
+                        )
+                    ])
+            ])
     fun upload(
             @Parameter(required = true, name = "Image ByteStream")
             @RequestParam("image") image: MultipartFile, principal: Principal
@@ -46,7 +62,19 @@ class ImageController(val imageService: ImageService) {
     }
 
     @PostMapping("/multiple")
-    @Operation(description = "Upload array of images")
+    @Operation(description = "Upload array of images image",
+            security = [SecurityRequirement(name = OpenAPIConfiguration.SECURITY_SCHEME)],
+            responses = [ApiResponse(
+                    responseCode = "200",
+                    content = [
+                        Content(
+                                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                array = ArraySchema(
+                                        schema = Schema(implementation = UploadResponseDto::class)
+                                )
+                        )
+                    ])
+            ])
     fun uploadMultiple(
             @Parameter(required = true, name = "Image ByteStream Array")
             @RequestParam("images") images: Array<MultipartFile>, principal: Principal
@@ -67,7 +95,16 @@ class ImageController(val imageService: ImageService) {
     }
 
     @GetMapping("/{imageId}")
-    @Operation(description = "Download image")
+    @Operation(description = "Download image",
+            security = [SecurityRequirement(name = OpenAPIConfiguration.SECURITY_SCHEME)],
+            responses = [ApiResponse(
+                    responseCode = "200",
+                    content = [
+                        Content(
+                                schema = Schema(implementation = Resource::class)
+                        )
+                    ])
+            ])
     fun download(
             @PathVariable imageId: String
     ): ResponseEntity<Resource> {
@@ -81,7 +118,17 @@ class ImageController(val imageService: ImageService) {
     }
 
     @DeleteMapping("/{imageId}")
-    @Operation(description = "Delete image by id")
+    @Operation(description = "Delete image by id",
+            security = [SecurityRequirement(name = OpenAPIConfiguration.SECURITY_SCHEME)],
+            responses = [ApiResponse(
+                    responseCode = "200",
+                    content = [
+                        Content(
+                                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                schema = Schema(implementation = String::class)
+                        )
+                    ])
+            ])
     fun delete(
             @PathVariable imageId: String, principal: Principal
     ): String {
@@ -89,7 +136,19 @@ class ImageController(val imageService: ImageService) {
     }
 
     @GetMapping("/user")
-    @Operation(description = "Get list of user's images")
+    @Operation(description = "Get list of user's images",
+            security = [SecurityRequirement(name = OpenAPIConfiguration.SECURITY_SCHEME)],
+            responses = [ApiResponse(
+                    responseCode = "200",
+                    content = [
+                        Content(
+                                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                array = ArraySchema(
+                                        schema = Schema(implementation = UserImageDto::class)
+                                )
+                        )
+                    ])
+            ])
     fun user(principal: Principal): List<UserImageDto> {
         return imageService.usersImagesId(principal.name).map {
             val fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()

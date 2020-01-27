@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController
 
 
 @RestController
-@Tag(name = "Auth API", description = "Rest API for authenticate users")
+@Tag(name = "Auth API", description = "REST API for authenticate users")
 @RequestMapping(value = ["/api/v1/authenticate"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class AuthController(
         private val authenticationManager: AuthenticationManager,

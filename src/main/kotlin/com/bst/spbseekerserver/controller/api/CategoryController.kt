@@ -16,7 +16,7 @@ import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@Tag(name = "Category API", description = "Rest API for categories")
+@Tag(name = "Category API", description = "REST API for categories")
 @RequestMapping(value = ["/api/v1/category"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class CategoryController(private val categoryService: CategoryService) {
 
