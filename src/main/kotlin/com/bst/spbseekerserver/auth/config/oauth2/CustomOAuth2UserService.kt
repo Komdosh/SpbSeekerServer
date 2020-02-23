@@ -55,7 +55,7 @@ class CustomOAuth2UserService(val userRepository: UserRepository) : DefaultOAuth
     }
 
     private fun registerNewUser(oAuth2UserRequest: OAuth2UserRequest, oAuth2UserInfo: OAuth2UserInfo): User {
-        val user = User(null, oAuth2UserInfo.email, "", oAuth2UserInfo.name, oAuth2UserInfo.imageUrl, setOf(UserRole.USER),
+        val user = User(null, oAuth2UserInfo.email, "", oAuth2UserInfo.name, oAuth2UserInfo.imageUrl, setOf(UserRole.ROLE_USER),
                 AuthProvider.valueOf(oAuth2UserRequest.clientRegistration.registrationId), oAuth2UserInfo.id)
 
         return userRepository.save(user)

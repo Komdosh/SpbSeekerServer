@@ -14,14 +14,13 @@ import javax.persistence.*
 data class User(
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
         val id: Long? = null,
-
         val email: String = "",
         val password: String = "",
         val name: String = "",
         val photoUrl: String = "",
         @Enumerated(EnumType.STRING)
         @ElementCollection(fetch = FetchType.EAGER)
-        val roles: Set<UserRole> = setOf(UserRole.USER),
+        val roles: Set<UserRole> = setOf(UserRole.ROLE_USER),
         @Enumerated(EnumType.STRING)
         val provider: AuthProvider = AuthProvider.LOCAL,
         val providerId: String = ""
@@ -49,7 +48,7 @@ data class User(
                 password = passwordEncoder.encode(dto.password ?: ""),
                 name = dto.name ?: "",
                 photoUrl = dto.photoUrl ?: "",
-                roles = setOf(UserRole.USER),
+                roles = setOf(UserRole.ROLE_USER),
                 provider = authProvider)
 
         fun fromDto(dto: UpdateUserDto, entity: User, passwordEncoder: PasswordEncoder = BCryptPasswordEncoder()) = User(

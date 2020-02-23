@@ -4,6 +4,7 @@ import com.bst.spbseekerserver.auth.service.security.JWTTokenProvider
 import com.bst.spbseekerserver.auth.service.security.UserAuthDetailsService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.util.StringUtils
 import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
 import javax.servlet.FilterChain
@@ -21,9 +22,9 @@ class JwtAuthenticationFilter(
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
         try {
             val jwt = getJwtFromRequest(request)
-            if (jwt.isNotEmpty() && jwtTokenProvider.validateToken(jwt)) {
+            if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) {
                 logger.info("Token is Valid ")
-                val userNameFromToken = jwtTokenProvider.getUserNameFromToken(jwt)
+                val userNameFromToken = jwtTokenProvider.getUsernameFromToken(jwt)
                 val userDetails = userAuthDetailsService.loadUserByUsername(userNameFromToken)
 
                 val authentication = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)

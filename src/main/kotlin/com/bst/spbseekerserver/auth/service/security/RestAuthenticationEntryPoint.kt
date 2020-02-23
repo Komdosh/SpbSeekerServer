@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class InvalidLoginAttemptHandler : AuthenticationEntryPoint {
+class RestAuthenticationEntryPoint : AuthenticationEntryPoint {
     @Throws(IOException::class, ServletException::class)
     override fun commence(httpServletRequest: HttpServletRequest,
                           httpServletResponse: HttpServletResponse,

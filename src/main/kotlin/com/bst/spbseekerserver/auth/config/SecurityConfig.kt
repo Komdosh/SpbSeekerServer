@@ -5,13 +5,14 @@ import com.bst.spbseekerserver.auth.config.oauth2.CookieOAuth2AuthorizationReqRe
 import com.bst.spbseekerserver.auth.config.oauth2.CustomOAuth2UserService
 import com.bst.spbseekerserver.auth.config.oauth2.OAuth2FailureAuth
 import com.bst.spbseekerserver.auth.config.oauth2.OAuth2SuccessfulAuth
-import com.bst.spbseekerserver.auth.service.security.InvalidLoginAttemptHandler
 import com.bst.spbseekerserver.auth.service.security.JWTTokenProvider
+import com.bst.spbseekerserver.auth.service.security.RestAuthenticationEntryPoint
 import com.bst.spbseekerserver.auth.service.security.UserAuthDetailsService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.config.BeanIds
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -32,7 +33,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 )
 class SecurityConfig(
         private val userAuthDetailsService: UserAuthDetailsService,
-        private val invalidLoginAttemptHandler: InvalidLoginAttemptHandler,
+        private val restAuthenticationEntryPoint: RestAuthenticationEntryPoint,
         private val jwtTokenProvider: JWTTokenProvider,
         private val customOAuth2UserService: CustomOAuth2UserService,
         private val oAuth2SuccessfulAuth: OAuth2SuccessfulAuth,
@@ -49,7 +50,7 @@ class SecurityConfig(
         return BCryptPasswordEncoder()
     }
 
-    @Bean
+    @Bean(BeanIds.AUTHENTICATION_MANAGER)
     override fun authenticationManagerBean(): AuthenticationManager {
         return super.authenticationManagerBean()
     }
@@ -71,10 +72,10 @@ class SecurityConfig(
                 .csrf().disable()
                 .formLogin().disable()
                 .httpBasic().disable()
-                .exceptionHandling().authenticationEntryPoint(invalidLoginAttemptHandler)
+                .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/authenticate/**").permitAll()
+                .antMatchers("/api/v1/auth/**").permitAll()
                 .antMatchers(
                         "/swagger-ui.html", "/webjars/**", "/swagger-resources/",
                         "/swagger-resources/**", "/v2/api-docs", "/csrf"
@@ -92,7 +93,7 @@ class SecurityConfig(
                 .antMatchers("/auth/**", "/oauth2/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
                 .antMatchers("/swagger-ui/*", "/api-docs/*", "/api-docs").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .oauth2Login()
                 .authorizationEndpoint()

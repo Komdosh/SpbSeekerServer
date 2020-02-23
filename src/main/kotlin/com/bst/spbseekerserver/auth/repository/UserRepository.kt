@@ -7,6 +7,6 @@ import java.util.*
 
 @Repository
 interface UserRepository : CrudRepository<User, Long> {
-    fun existsUserByEmail(email: String): Boolean
+    fun existsByEmail(email: String): Boolean
     fun findByEmail(email: String): Optional<User>
 }

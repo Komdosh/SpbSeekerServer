@@ -29,8 +29,8 @@ fun main(args: Array<String>) {
 }
 
 fun dataSetup(userRepository: UserRepository, passwordEncoder: PasswordEncoder) {
-    if (!userRepository.existsUserByEmail("admin")) {
+    if (!userRepository.existsByEmail("admin")) {
         userRepository.save(User(null, "admin",
-                passwordEncoder.encode("123"), "Admin", "", setOf(UserRole.ADMIN), AuthProvider.LOCAL))
+                passwordEncoder.encode("123"), "Admin", "", setOf(UserRole.ROLE_ADMIN), AuthProvider.LOCAL))
     }
 }

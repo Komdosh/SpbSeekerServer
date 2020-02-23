@@ -46,7 +46,8 @@ class JWTTokenProvider(
         return false
     }
 
-    fun getUserNameFromToken(token: String): String {
-        return Jwts.parser().setSigningKey(appProperties.auth.tokenSecret).parseClaimsJws(token).body.subject
+    fun getUsernameFromToken(token: String): String {
+        val claims = Jwts.parser().setSigningKey(appProperties.auth.tokenSecret).parseClaimsJws(token).body
+        return claims.subject
     }
 }

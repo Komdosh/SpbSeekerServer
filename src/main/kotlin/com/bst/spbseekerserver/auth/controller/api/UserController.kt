@@ -1,8 +1,10 @@
 package com.bst.spbseekerserver.auth.controller.api
 
+import com.bst.spbseekerserver.auth.config.CurrentUser
 import com.bst.spbseekerserver.auth.model.dto.CreateUserDto
 import com.bst.spbseekerserver.auth.model.dto.UpdateUserDto
 import com.bst.spbseekerserver.auth.model.dto.UserDto
+import com.bst.spbseekerserver.auth.model.security.UserPrincipal
 import com.bst.spbseekerserver.auth.service.api.UserService
 import com.bst.spbseekerserver.config.OpenAPIConfiguration
 import io.swagger.v3.oas.annotations.Operation
@@ -23,6 +25,7 @@ import javax.validation.Valid
 @RequestMapping(value = ["/api/v1/user"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class UserController(val userService: UserService) {
     @GetMapping
+    @PreAuthorize("isAuthenticated()")
     @Operation(description = "Fetching user info",
             security = [SecurityRequirement(name = OpenAPIConfiguration.SECURITY_SCHEME)],
             responses = [ApiResponse(
@@ -34,12 +37,11 @@ class UserController(val userService: UserService) {
                         )
                     ])
             ])
-    fun userInfo(principal: Principal): UserDto = userService.getUserByEmail(principal.name).toDto()
+    fun userInfo(@CurrentUser userPrincipal: UserPrincipal): UserDto = userService.getUserByEmail(userPrincipal.username).toDto()
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(description = "Create user",
-            security = [SecurityRequirement(name = OpenAPIConfiguration.SECURITY_SCHEME)],
             responses = [ApiResponse(
                     responseCode = "201",
                     content = [
@@ -67,7 +69,7 @@ class UserController(val userService: UserService) {
     fun update(@RequestBody updateUserDto: UpdateUserDto, principal: Principal): UserDto = userService.update(updateUserDto, principal.name)
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(description = "Delete one user by id",
             security = [SecurityRequirement(name = OpenAPIConfiguration.SECURITY_SCHEME)],
             responses = [ApiResponse(

@@ -36,13 +36,13 @@ spring:
             scope:
               - email
               - profile
-        #          facebook:
-        #            clientId:
-        #            clientSecret:
-        #            redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
-        #            scope:
-        #              - email
-        #              - public_profile
+          facebook:
+            clientId: 2477536222489910
+            clientSecret: d6b1a3cd99765de6f359b82a72005792
+            redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - email
+              - public_profile
         provider:
           facebook:
             authorizationUri: https://www.facebook.com/v3.0/dialog/oauth
