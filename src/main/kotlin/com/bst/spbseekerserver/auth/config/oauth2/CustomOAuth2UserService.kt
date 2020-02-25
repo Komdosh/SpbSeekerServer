@@ -35,7 +35,7 @@ class CustomOAuth2UserService(val userRepository: UserRepository) : DefaultOAuth
     }
 
     private fun processOAuth2User(oAuth2UserRequest: OAuth2UserRequest, oAuth2User: OAuth2User): OAuth2User {
-        val oAuth2UserInfo: OAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(oAuth2UserRequest.clientRegistration.registrationId, oAuth2User.attributes)
+        val oAuth2UserInfo: OAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(oAuth2UserRequest.clientRegistration.registrationId.toUpperCase(), oAuth2User.attributes)
         if (StringUtils.isEmpty(oAuth2UserInfo.email)) {
             throw IllegalStateException("Email not found from OAuth2 provider")
         }
@@ -43,7 +43,7 @@ class CustomOAuth2UserService(val userRepository: UserRepository) : DefaultOAuth
         var user: User
         if (userOptional.isPresent) {
             user = userOptional.get()
-            if (user.provider != AuthProvider.valueOf(oAuth2UserRequest.clientRegistration.registrationId)) {
+            if (user.provider != AuthProvider.valueOf(oAuth2UserRequest.clientRegistration.registrationId.toUpperCase())) {
                 throw IllegalStateException("Looks like you're signed up" +
                         " with ${user.provider} account. Please use your ${user.provider} account to login.")
             }
@@ -56,14 +56,13 @@ class CustomOAuth2UserService(val userRepository: UserRepository) : DefaultOAuth
 
     private fun registerNewUser(oAuth2UserRequest: OAuth2UserRequest, oAuth2UserInfo: OAuth2UserInfo): User {
         val user = User(null, oAuth2UserInfo.email, "", oAuth2UserInfo.name, oAuth2UserInfo.imageUrl, setOf(UserRole.ROLE_USER),
-                AuthProvider.valueOf(oAuth2UserRequest.clientRegistration.registrationId), oAuth2UserInfo.id)
+                AuthProvider.valueOf(oAuth2UserRequest.clientRegistration.registrationId.toUpperCase()), oAuth2UserInfo.id)
 
         return userRepository.save(user)
     }
 
     private fun updateExistingUser(existingUser: User, oAuth2UserInfo: OAuth2UserInfo): User {
-        return userRepository.save(
-                User.fromDto(UpdateUserDto(oAuth2UserInfo), existingUser)
+        return userRepository.save(User.fromDto(UpdateUserDto(oAuth2UserInfo), existingUser)
         )
     }
 }

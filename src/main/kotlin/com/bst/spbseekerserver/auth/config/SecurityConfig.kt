@@ -67,15 +67,21 @@ class SecurityConfig(
 
     override fun configure(http: HttpSecurity) {
         http
-                .cors().and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .csrf().disable()
-                .formLogin().disable()
-                .httpBasic().disable()
-                .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint)
+                .cors()
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .csrf()
+                .disable()
+                .formLogin()
+                .disable()
+                .httpBasic()
+                .disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/auth/**").permitAll()
                 .antMatchers(
                         "/swagger-ui.html", "/webjars/**", "/swagger-resources/",
                         "/swagger-resources/**", "/v2/api-docs", "/csrf"
@@ -90,10 +96,10 @@ class SecurityConfig(
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js").permitAll()
-                .antMatchers("/auth/**", "/oauth2/**").permitAll()
+                .antMatchers("/api/v1/auth/**", "/oauth2 /**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
                 .antMatchers("/swagger-ui/*", "/api-docs/*", "/api-docs").permitAll()
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .oauth2Login()
                 .authorizationEndpoint()

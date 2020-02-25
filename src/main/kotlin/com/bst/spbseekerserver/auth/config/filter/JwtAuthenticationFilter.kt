@@ -4,6 +4,7 @@ import com.bst.spbseekerserver.auth.service.security.JWTTokenProvider
 import com.bst.spbseekerserver.auth.service.security.UserAuthDetailsService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.util.StringUtils
 import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
@@ -28,9 +29,9 @@ class JwtAuthenticationFilter(
                 val userDetails = userAuthDetailsService.loadUserByUsername(userNameFromToken)
 
                 val authentication = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
+                authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
+
                 SecurityContextHolder.getContext().authentication = authentication
-
-
             }
         } catch (ex: Exception) {
             logger.error("Could not set user authentication in security context", ex)

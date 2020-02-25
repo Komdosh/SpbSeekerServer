@@ -30,16 +30,16 @@ spring:
       client:
         registration:
           google:
-            clientId: 961261126766-rr2tqs3pjck67sko4q6ahmqmlh7uvllo.apps.googleusercontent.com
-            clientSecret: iX_0bYzZJ7ZurU9VyQHADeWe
-            redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+            clientId: 961261126766-b9fbial1pkmf84ndhfg00c9n57gdsjpu.apps.googleusercontent.com
+            clientSecret: c8WPDtFfF3FlZCxgJ1Uq4pTu
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - email
               - profile
           facebook:
             clientId: 2477536222489910
             clientSecret: d6b1a3cd99765de6f359b82a72005792
-            redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - email
               - public_profile
@@ -64,6 +64,7 @@ app:
     # redirectUri mentioned by the frontend client in the /oauth2/authorize request.
     # We're not using cookies because they won't work well in mobile clients.
     authorizedRedirectUris:
+      - http://localhost:3000/oauth2/redirect
       - http://localhost:8080/oauth2/redirect
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect
