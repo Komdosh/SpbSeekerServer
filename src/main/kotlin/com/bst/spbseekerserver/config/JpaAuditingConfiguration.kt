@@ -1,8 +1,8 @@
 package com.bst.spbseekerserver.config
 
-import com.bst.spbseekerserver.model.entity.User
-import com.bst.spbseekerserver.model.security.UserPrincipal
-import com.bst.spbseekerserver.service.api.UserService
+import com.bst.spbseekerserver.auth.model.entity.User
+import com.bst.spbseekerserver.auth.model.security.UserPrincipal
+import com.bst.spbseekerserver.auth.service.api.UserService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.domain.AuditorAware

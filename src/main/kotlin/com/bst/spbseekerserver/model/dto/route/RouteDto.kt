@@ -5,23 +5,23 @@ import com.bst.spbseekerserver.model.dto.meta.MetaDto
 import com.bst.spbseekerserver.model.dto.route.subroute.SubRouteDto
 import com.bst.spbseekerserver.model.enums.PublishState
 import com.bst.spbseekerserver.model.enums.SubmissionState
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 
 data class RouteDto(
-        @ApiModelProperty(notes = "Route id")
+        @Schema(name = "Route id")
         val id: Long,
-        @ApiModelProperty(notes = "Provided route name")
+        @Schema(name = "Provided route name")
         val name: String,
-        @ApiModelProperty(notes = "Description of route")
+        @Schema(name = "Description of route")
         val description: String,
-        @ApiModelProperty(notes = "Category of route")
+        @Schema(name = "Category of route")
         val category: CategoryDto,
-        @ApiModelProperty(notes = "SubRoutes for route")
+        @Schema(name = "SubRoutes for route")
         val subRoutes: List<SubRouteDto>,
-        @ApiModelProperty(notes = "Publishing status", allowableValues = "DRAFT, PUBLISHED")
+        @Schema(name = "Publishing status"/*, allowableValues = ["DRAFT", "PUBLISHED"]*/, oneOf = [PublishState::class])
         val publishState: PublishState,
-        @ApiModelProperty(notes = "Submission status", allowableValues = "EDITING, SUBMITTED, APPROVED, REJECTED")
+        @Schema(name = "Submission status"/*, allowableValues = ["EDITING", "SUBMITTED", "APPROVED", "REJECTED"]*/, oneOf = [SubmissionState::class])
         val submissionState: SubmissionState,
-        @ApiModelProperty(notes = "Meta information of route")
+        @Schema(name = "Meta information of route")
         val meta: MetaDto
 )

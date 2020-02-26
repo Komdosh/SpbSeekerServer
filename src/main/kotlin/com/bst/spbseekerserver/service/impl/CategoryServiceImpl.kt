@@ -1,5 +1,6 @@
 package com.bst.spbseekerserver.service.impl
 
+import com.bst.spbseekerserver.auth.service.api.UserService
 import com.bst.spbseekerserver.logger
 import com.bst.spbseekerserver.model.dto.category.CategoryDto
 import com.bst.spbseekerserver.model.dto.category.CreateCategoryDto
@@ -7,7 +8,6 @@ import com.bst.spbseekerserver.model.dto.category.UpdateCategoryDto
 import com.bst.spbseekerserver.model.entity.Category
 import com.bst.spbseekerserver.repository.CategoryRepository
 import com.bst.spbseekerserver.service.api.CategoryService
-import com.bst.spbseekerserver.service.api.UserService
 import javassist.NotFoundException
 import org.springframework.stereotype.Service
 

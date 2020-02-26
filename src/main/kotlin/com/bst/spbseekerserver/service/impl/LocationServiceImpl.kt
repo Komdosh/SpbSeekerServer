@@ -1,5 +1,6 @@
 package com.bst.spbseekerserver.service.impl
 
+import com.bst.spbseekerserver.auth.service.api.UserService
 import com.bst.spbseekerserver.logger
 import com.bst.spbseekerserver.model.dto.location.CreateLocationDto
 import com.bst.spbseekerserver.model.dto.location.LocationDto
@@ -8,7 +9,6 @@ import com.bst.spbseekerserver.model.entity.Location
 import com.bst.spbseekerserver.model.location.Position
 import com.bst.spbseekerserver.repository.LocationRepository
 import com.bst.spbseekerserver.service.api.LocationService
-import com.bst.spbseekerserver.service.api.UserService
 import javassist.NotFoundException
 import org.springframework.stereotype.Service
 

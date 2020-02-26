@@ -1,5 +1,6 @@
 package com.bst.spbseekerserver.service.impl
 
+import com.bst.spbseekerserver.auth.service.api.UserService
 import com.bst.spbseekerserver.logger
 import com.bst.spbseekerserver.model.dto.route.CreateRouteDto
 import com.bst.spbseekerserver.model.dto.route.RouteDto
@@ -7,7 +8,6 @@ import com.bst.spbseekerserver.model.dto.route.UpdateRouteDto
 import com.bst.spbseekerserver.model.entity.Route
 import com.bst.spbseekerserver.repository.RouteRepository
 import com.bst.spbseekerserver.service.api.RouteService
-import com.bst.spbseekerserver.service.api.UserService
 import javassist.NotFoundException
 import org.springframework.stereotype.Service
 

@@ -1,23 +1,23 @@
 package com.bst.spbseekerserver.model.dto.location
 
 import com.bst.spbseekerserver.model.dto.meta.MetaDto
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 
 data class LocationDto(
-        @ApiModelProperty(notes = "Location id")
+        @Schema(name = "Location id")
         val id: Long,
-        @ApiModelProperty(notes = "Name of location")
+        @Schema(name = "Name of location")
         val name: String,
-        @ApiModelProperty(notes = "List of location images")
+        @Schema(name = "List of location images")
         val imgUrlList: List<String>,
-        @ApiModelProperty(notes = "Full Description of this location")
+        @Schema(name = "Full Description of this location")
         val description: String,
-        @ApiModelProperty(notes = "Short Description of this location")
+        @Schema(name = "Short Description of this location")
         val shortDescription: String,
-        @ApiModelProperty(notes = "Location latitude")
+        @Schema(name = "Location latitude")
         val latitude: Double,
-        @ApiModelProperty(notes = "Location longitude")
+        @Schema(name = "Location longitude")
         val longitude: Double,
-        @ApiModelProperty(notes = "Meta information of location")
+        @Schema(name = "Meta information of location")
         val meta: MetaDto
 )

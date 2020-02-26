@@ -1,49 +1,112 @@
 package com.bst.spbseekerserver.controller.api
 
+import com.bst.spbseekerserver.config.OpenAPIConfiguration
 import com.bst.spbseekerserver.model.dto.location.CreateLocationDto
 import com.bst.spbseekerserver.model.dto.location.LocationDto
 import com.bst.spbseekerserver.model.dto.location.UpdateLocationDto
-import com.bst.spbseekerserver.model.dto.route.RouteDto
-import com.bst.spbseekerserver.service.api.AutoRoutingService
 import com.bst.spbseekerserver.service.api.LocationService
-import io.swagger.annotations.Api
-import io.swagger.annotations.ApiOperation
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.ArraySchema
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
+import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@Api(value = "location", description = "Rest API for location operations", tags = ["Location API"])
+@Tag(name = "Location API", description = "REST API for location operations")
 @RequestMapping(value = ["/api/v1/location"], produces = [MediaType.APPLICATION_JSON_VALUE])
-class LocationController(val locationService: LocationService, val autoRoutingService: AutoRoutingService) {
-    @ApiOperation(value = "Fetching one location by id", response = LocationDto::class)
+class LocationController(private val locationService: LocationService) {
+
     @GetMapping("/{id}")
+    @Operation(description = "Fetching one location by id",
+            security = [SecurityRequirement(name = OpenAPIConfiguration.SECURITY_SCHEME)],
+            responses = [ApiResponse(
+                    responseCode = "200",
+                    content = [
+                        Content(
+                                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                schema = Schema(implementation = LocationDto::class)
+                        )
+                    ])
+            ])
     fun get(@PathVariable("id") pointId: Long): LocationDto = locationService.getDto(pointId)
 
-    @ApiOperation(value = "Fetching all locations", responseContainer = "List", response = LocationDto::class)
     @GetMapping
+    @Operation(description = "Fetching all locations",
+            security = [SecurityRequirement(name = OpenAPIConfiguration.SECURITY_SCHEME)],
+            responses = [ApiResponse(
+                    responseCode = "200",
+                    content = [
+                        Content(
+                                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                array = ArraySchema(
+                                        schema = Schema(implementation = LocationDto::class)
+                                )
+                        )
+                    ])
+            ])
     fun getAll(): List<LocationDto> = locationService.getAll()
 
     @PostMapping
-    @ApiOperation(value = "Create location", response = LocationDto::class)
+    @ResponseStatus(HttpStatus.CREATED)
+    @Operation(description = "Create location",
+            security = [SecurityRequirement(name = OpenAPIConfiguration.SECURITY_SCHEME)],
+            responses = [ApiResponse(
+                    responseCode = "201",
+                    content = [
+                        Content(
+                                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                schema = Schema(implementation = LocationDto::class)
+                        )
+                    ])
+            ])
     fun create(@RequestBody createLocationDto: CreateLocationDto): LocationDto = locationService.create(createLocationDto)
 
     @PutMapping("/{id}")
-    @ApiOperation(value = "Update location", response = LocationDto::class)
+    @Operation(description = "Update location",
+            security = [SecurityRequirement(name = OpenAPIConfiguration.SECURITY_SCHEME)],
+            responses = [ApiResponse(
+                    responseCode = "200",
+                    content = [
+                        Content(
+                                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                schema = Schema(implementation = LocationDto::class)
+                        )
+                    ])
+            ])
     fun update(@PathVariable("id") locationId: Long, @RequestBody updateLocationDto: UpdateLocationDto):
             LocationDto = locationService.update(updateLocationDto, locationId)
 
-    @ApiOperation(value = "Delete one location by id", response = Long::class)
     @DeleteMapping("/{id}")
+    @Operation(description = "Delete one location by id",
+            security = [SecurityRequirement(name = OpenAPIConfiguration.SECURITY_SCHEME)],
+            responses = [ApiResponse(
+                    responseCode = "200",
+                    content = [
+                        Content(
+                                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                schema = Schema(implementation = Long::class)
+                        )
+                    ])
+            ])
     fun delete(@PathVariable("id") locationId: Long): Long = locationService.delete(locationId)
 
-    @ApiOperation(value = "Fetch nearest location by coordinates", response = LocationDto::class)
     @GetMapping("/nearest")
+    @Operation(description = "Fetch nearest location by coordinates",
+            security = [SecurityRequirement(name = OpenAPIConfiguration.SECURITY_SCHEME)],
+            responses = [ApiResponse(
+                    responseCode = "200",
+                    content = [
+                        Content(
+                                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                schema = Schema(implementation = LocationDto::class)
+                        )
+                    ])
+            ])
     fun getNearestPoint(@RequestParam("latitude") latitude: Double,
                         @RequestParam("longitude") longitude: Double): LocationDto = locationService.getNearestPoint(latitude, longitude)
-
-    @ApiOperation(value = "Generate route automatically (not implemented)", response = RouteDto::class)
-    @GetMapping("/auto")
-    fun getAuto(@RequestParam("latitude") latitude: Double,
-                @RequestParam("longitude") longitude: Double): RouteDto? = autoRoutingService.generateRoute(latitude, longitude)
-
 }

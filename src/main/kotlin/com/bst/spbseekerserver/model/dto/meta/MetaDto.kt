@@ -1,17 +1,17 @@
 package com.bst.spbseekerserver.model.dto.meta
 
-import com.bst.spbseekerserver.model.dto.user.CreatedByUserDto
-import com.bst.spbseekerserver.model.dto.user.ModifiedByUserDto
-import io.swagger.annotations.ApiModelProperty
+import com.bst.spbseekerserver.auth.model.dto.CreatedByUserDto
+import com.bst.spbseekerserver.auth.model.dto.ModifiedByUserDto
+import io.swagger.v3.oas.annotations.media.Schema
 import java.util.*
 
 data class MetaDto(
-        @ApiModelProperty(notes = "User that create this resource")
+        @Schema(name = "User that create this resource")
         val createdBy: CreatedByUserDto,
-        @ApiModelProperty(notes = "User that modify this resource")
+        @Schema(name = "User that modify this resource")
         val modifiedBy: ModifiedByUserDto,
-        @ApiModelProperty(notes = "Creation date")
+        @Schema(name = "Creation date")
         val created: Date,
-        @ApiModelProperty(notes = "Modified date")
+        @Schema(name = "Modified date")
         val modified: Date
 )

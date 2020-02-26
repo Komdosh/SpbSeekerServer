@@ -1,19 +1,19 @@
 package com.bst.spbseekerserver.model.dto.hint
 
 import com.bst.spbseekerserver.model.enums.HintAction
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 import javax.validation.constraints.NotBlank
 
 data class CreateHintDto(
         @field:NotBlank(message = "Name of hint should not be blank")
-        @ApiModelProperty(notes = "Provided hint name", required = true)
+        @Schema(name = "Provided hint name", required = true)
         val name: String,
-        @ApiModelProperty(notes = "Image url of hint")
+        @Schema(name = "Image url of hint")
         val imgUrl: String = "",
-        @ApiModelProperty(notes = "Full Description of this hint", required = true)
+        @Schema(name = "Full Description of this hint", required = true)
         val description: String,
-        @ApiModelProperty(notes = "Short Description of this hint", required = true)
+        @Schema(name = "Short Description of this hint", required = true)
         val shortDescription: String,
-        @ApiModelProperty(notes = "Hint action type", required = true)
+        @Schema(name = "Hint action type", required = true)
         val hintAction: HintAction
 )

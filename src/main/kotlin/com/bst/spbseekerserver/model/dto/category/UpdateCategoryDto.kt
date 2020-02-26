@@ -1,10 +1,10 @@
 package com.bst.spbseekerserver.model.dto.category
 
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 
 data class UpdateCategoryDto(
-        @ApiModelProperty(notes = "Provided category name")
+        @Schema(name = "Provided category name")
         val name: String?,
-        @ApiModelProperty(notes = "Image url of category")
+        @Schema(name = "Image url of category")
         val imgUrl: String?
 )

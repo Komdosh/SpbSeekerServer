@@ -1,11 +1,11 @@
 package com.bst.spbseekerserver.service.impl
 
+import com.bst.spbseekerserver.auth.service.api.UserService
 import com.bst.spbseekerserver.logger
 import com.bst.spbseekerserver.model.entity.common.DBFile
 import com.bst.spbseekerserver.model.entity.common.Image
 import com.bst.spbseekerserver.repository.ImageRepository
 import com.bst.spbseekerserver.service.api.ImageService
-import com.bst.spbseekerserver.service.api.UserService
 import javassist.NotFoundException
 import org.springframework.stereotype.Service
 import java.io.InputStream
