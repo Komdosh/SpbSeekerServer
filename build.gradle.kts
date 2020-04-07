@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    val kotlinVersion = "1.3.61"
-    val springVersion = "2.2.4.RELEASE"
+    val kotlinVersion = "1.3.71"
+    val springVersion = "2.2.6.RELEASE"
     id("org.springframework.boot") version springVersion
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     kotlin("jvm") version kotlinVersion
@@ -47,8 +47,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.github.microutils:kotlin-logging:1.7.6")
 
-    implementation("org.springdoc:springdoc-openapi-kotlin:1.2.28")
-    implementation("org.springdoc:springdoc-openapi-ui:1.2.28")
+    implementation("org.springdoc:springdoc-openapi-kotlin:1.3.1")
+    implementation("org.springdoc:springdoc-openapi-ui:1.3.1")
 
     runtimeOnly("org.postgresql:postgresql")
     compileOnly("org.projectlombok:lombok")
