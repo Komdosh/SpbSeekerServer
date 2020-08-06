@@ -1,7 +1,7 @@
 spring:
   datasource:
     #    url: jdbc:postgresql://185.91.53.30:5432/spbseeker
-    url: jdbc:postgresql://localhost:5439/spbseeker
+    url: jdbc:postgresql://localhost:5433/spbseeker
     username: spbseeker
     password: spbseeker
   jpa:

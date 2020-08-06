@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    val kotlinVersion = "1.3.71"
-    val springVersion = "2.2.6.RELEASE"
+    val kotlinVersion = "1.3.72"
+    val springVersion = "2.3.2.RELEASE"
     id("org.springframework.boot") version springVersion
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     kotlin("jvm") version kotlinVersion
@@ -10,17 +10,17 @@ plugins {
     kotlin("plugin.jpa") version kotlinVersion
 }
 
-group = "com.bst"
+group = "pro.komdosh"
 version = "0.0.1"
 java.apply {
-    sourceCompatibility = JavaVersion.VERSION_13
-    targetCompatibility = JavaVersion.VERSION_13
+    sourceCompatibility = JavaVersion.VERSION_14
+    targetCompatibility = JavaVersion.VERSION_14
 }
 
-val developmentOnly: Configuration by configurations.creating
+val developmentOnlyConf: Configuration by configurations.creating
 configurations {
     runtimeClasspath {
-        extendsFrom(developmentOnly)
+        extendsFrom(developmentOnlyConf)
     }
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
@@ -62,7 +62,7 @@ dependencies {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = JavaVersion.VERSION_12.majorVersion
+        jvmTarget = JavaVersion.VERSION_14.majorVersion
     }
 }
 
