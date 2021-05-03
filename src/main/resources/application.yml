@@ -30,15 +30,15 @@ spring:
       client:
         registration:
           google:
-            clientId: 961261126766-b9fbial1pkmf84ndhfg00c9n57gdsjpu.apps.googleusercontent.com
-            clientSecret: c8WPDtFfF3FlZCxgJ1Uq4pTu
+            clientId: {GOOGLE_CLIENT_ID_AUTH}
+            clientSecret: {GOOGLE_CLIENT_SECRET_AUTH}
             redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - email
               - profile
           facebook:
-            clientId: 2477536222489910
-            clientSecret: d6b1a3cd99765de6f359b82a72005792
+            clientId: {FACEBOOK_CLIENT_ID_AUTH}
+            clientSecret: {FACEBOOK_CLIENT_SECRET_AUTH}
             redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - email
@@ -56,7 +56,7 @@ springdoc:
     path: /swagger-ui
 app:
   auth:
-    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+    tokenSecret: {APP_TOKEN_SECREET_SALT}
     tokenExpirationMsec: 864000000
   oauth2:
     # After successfully authenticating with the OAuth2 Provider,
